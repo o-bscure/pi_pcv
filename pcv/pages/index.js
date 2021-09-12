@@ -36,7 +36,7 @@ export default class Home extends React.Component {
         event.preventDefault()
         axios({
           method: 'post',
-          url: 'http://localhost:3000/api/remote',
+          url: '/api/remote',
           timeout: 5000,
           data: {
               run: this.state.run,
