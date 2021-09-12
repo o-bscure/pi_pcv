@@ -1,0 +1,34 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/pcv/node_modules
+/pcv/.pnp
+.pnp.js
+
+# testing
+/pcv/coverage
+
+# next.js
+/pcv/.next/
+/pcv/out/
+
+# production
+/pcv/build
+
+# misc
+/pcv/.DS_Store
+/pcv/*.pem
+
+# debug
+/pcv/npm-debug.log*
+/pcv/yarn-debug.log*
+/pcv/yarn-error.log*
+
+# local env files
+/pcv/.env.local
+/pcv/.env.development.local
+/pcv/.env.test.local
+/pcv/.env.production.local
+
+# vercel
+/pcv/.vercel
