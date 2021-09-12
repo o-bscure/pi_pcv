@@ -3,10 +3,12 @@ const path = require('path')
 var axios = require('axios')
 var remote = require('./remote.json');
 var crypto = require('crypto')
+var { blink_handle, stop_handle } = require('./hardware_facing/wraper')
 
 async function prepare_post_request(img_buf, file_type) {
     //console.log(config)
     if (remote.run && remote.tank) {
+	const blink_p = await blink_handle()
         const run = remote.run
         const tank = remote.tank
 
@@ -36,9 +38,12 @@ async function prepare_post_request(img_buf, file_type) {
             })
             .then((res) => {
                 console.log(res.status, res.statusText, res.data)
+		blink_p.kill()
+		stop_handle()
             })
             .catch((e) => {
                 console.error(e)
+		blink_p.kill()
             })
         })
 

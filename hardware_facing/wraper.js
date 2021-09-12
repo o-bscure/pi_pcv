@@ -4,6 +4,7 @@ const { sign } = require('crypto')
 const path = require('path')
 //const blink_f_path = path.join(__dirname, '/blink.py')
 blink_f_path = path.join("/home/pi/pi_pcv", "./hardware_facing/blink.py")
+stop_f_path = path.join("/home/pi/pi_pcv", "./hardware_facing/stop.py")
 
 async function blink_handle() {
     //console.log(blink_f_path)
@@ -19,22 +20,22 @@ async function blink_handle() {
         })
         blink_f.stderr.on('data', (e) => {
 	    console.log(e.toString())
-            console.log('script error')
+            console.log('blink script error')
             res(blink_f)
         })
         blink_f.on('close', (code, signal) => {
-            console.log(`blinking stopped`)
+            console.log(`blinking paused`)
         })
     })
 
 }
 
-async function blink_handle() {
+async function stop_handle() {
     //console.log(blink_f_path)
     return new Promise((res, rej) => {
-        const blink_f = spawn('python3', [blink_f_path])
+        const blink_f = spawn('python3', [stop_f_path])
         blink_f.on('spawn', () => {
-            console.log("blinking start")
+            console.log("turning light off")
             //console.log(data.toString())
             res(blink_f)
         })
@@ -43,11 +44,11 @@ async function blink_handle() {
         })
         blink_f.stderr.on('data', (e) => {
 	    console.log(e.toString())
-            console.log('script error')
+            console.log('stop script error')
             res(blink_f)
         })
         blink_f.on('close', (code, signal) => {
-            console.log(`blinking stopped`)
+            console.log(`light off`)
         })
     })
 
