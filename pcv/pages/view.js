@@ -268,7 +268,7 @@ export default class Upload extends React.Component {
                         )
                     }
                 }
-                resultrows.push(<div key={i} className="flex flex-col flex-wrap w-full place-self-center ">{results}</div>)
+                resultrows.push(<div key={i} className="flex flex-col flex-wrap w-full place-self-center p-2">{results}</div>)
             } else {
                 resultrows.push(<p key={i} className="flex flex-initial place-self-center place-items-center h-20 mt-3 ">X</p>)
             }

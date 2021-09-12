@@ -1,5 +1,5 @@
 const path = require('path')
-const envPath = path.resolve(process.cwd(), '.env.local')
+const envPath = path.resolve(process.cwd(), '../.env.local')
 
 console.log({ envPath })
 

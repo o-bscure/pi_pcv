@@ -2,7 +2,8 @@ const { rejects } = require('assert')
 const { spawn } =  require('child_process')
 const { sign } = require('crypto')
 const path = require('path')
-blink_f_path = path.join(__dirname, '/blink.py')
+//const blink_f_path = path.join(__dirname, '/blink.py')
+blink_f_path = path.join("/home/pi/pi_pcv", "./hardware_facing/blink.py")
 
 async function blink_handle() {
     //console.log(blink_f_path)
@@ -17,6 +18,31 @@ async function blink_handle() {
             console.log(`${data}`)
         })
         blink_f.stderr.on('data', (e) => {
+	    console.log(e.toString())
+            console.log('script error')
+            res(blink_f)
+        })
+        blink_f.on('close', (code, signal) => {
+            console.log(`blinking stopped`)
+        })
+    })
+
+}
+
+async function blink_handle() {
+    //console.log(blink_f_path)
+    return new Promise((res, rej) => {
+        const blink_f = spawn('python3', [blink_f_path])
+        blink_f.on('spawn', () => {
+            console.log("blinking start")
+            //console.log(data.toString())
+            res(blink_f)
+        })
+        blink_f.stdout.on('data', (data) => {
+            console.log(`${data}`)
+        })
+        blink_f.stderr.on('data', (e) => {
+	    console.log(e.toString())
             console.log('script error')
             res(blink_f)
         })
@@ -28,7 +54,8 @@ async function blink_handle() {
 }
 
 module.exports = {
-    blink_handle: blink_handle
+    blink_handle: blink_handle,
+    stop_handle: stop_handle
 }
 
 /*
