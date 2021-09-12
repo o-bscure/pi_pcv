@@ -20,7 +20,8 @@ export default class Home extends React.Component {
     handleRunSelect(event) {
         event.preventDefault()
         this.setState(prevState => ({
-            run: event.target.value 
+            run: event.target.value, 
+            isSet: undefined
         }))
     }
 
@@ -42,18 +43,40 @@ export default class Home extends React.Component {
               tank: this.state.tank
           }
         })
-        .then((r) => {
-            this.state.isSet = true
+        .then((r) => { 
+            this.setState((prevState) => ({
+                isSet: true
+            }))
         })
         .catch((e) => {
             console.error(e)
-            this.state.isSet = false
+            this.setState((prevState) => ({
+                isSet: false
+            }))
         })
     }
 
 
     render() {
         console.log(this.state)
+
+        if (this.state.isSet == undefined) {
+            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-48 h-12 border-2 font-medium focus:outline-none "
+            buttonType += "border-gray-100 "
+        } else if (this.state.isSet == true) {
+            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-48 h-12 border-2 font-medium focus:outline-none "
+            buttonType += "border-green-600 "
+        } else {
+            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-48 h-12 border-2 font-medium focus:outline-none "
+            buttonType += "border-red-400 "
+        }
+        if (!this.state.run) {
+            buttonType += "cursor-not-allowed "
+            var button_remote = <button disabled onClick={(e) => this.handleSubmit(e)} className={buttonType}>Set Remote</button>
+        } else {
+            buttonType += "hover:border-gray-800 "
+            var button_remote = <button onClick={(e) => this.handleSubmit(e)} className={buttonType}>Set Remote</button>
+        }
         return (
             <div className="grid grid-rows-2 h-screen w-screen bg-gray-400 place-items-center">
                 <h1 className="font-sans font-semibold text-5xl">PCV VIEWER</h1>
@@ -81,8 +104,7 @@ export default class Home extends React.Component {
                                     className={"flex flex-initial place-self-center w-10 h-7 bg-gray-400 border-2 border-gray-100 rounded-md focus:outline-none"}/>
                             </div>
 
-                            <button onClick={(e) => this.handleSubmit(e)} className="flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md 
-                                w-48 h-12 border-2 border-gray-100 font-medium hover:border-gray-800 focus:outline-none">Set Remote</button>
+                            {button_remote}
                         </div>
                     </div>
                     <span/>

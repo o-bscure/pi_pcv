@@ -143,10 +143,10 @@ export default class Upload extends React.Component {
             }, false)
         )) {
             var submitButton=<button onClick={(e) => this.handleSubmit(e)} disabled className="flex flex-initial place-self-center bg-gray-600 m-0 p-6 rounded-t-md 
-                        border-4 border-red-600 cursor-not-allowed font-medium hover:ring hover:ring-gray-300 active:bg-indigo-300">Submit</button>
+                        border-4 border-red-600 cursor-not-allowed focus:outline-none font-medium hover:ring hover:ring-gray-300 active:bg-indigo-300">Submit</button>
         } else {
             var submitButton=<button onClick={(e) => this.handleSubmit(e)} className="flex flex-initial place-self-center bg-gray-600 m-0 p-6 rounded-t-md 
-                        border-4 border-green-600 font-medium hover:ring hover:ring-gray-300 active:bg-indigo-300">Submit</button>
+                        border-4 border-green-600 font-medium focus:outline-none hover:ring hover:ring-gray-300 active:bg-indigo-300">Submit</button>
         }
 
         var filerows = [];

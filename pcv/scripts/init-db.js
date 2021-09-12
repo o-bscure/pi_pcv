@@ -34,7 +34,7 @@ async function migrate() {
       run VARCHAR(15) NOT NULL,
       tank INT unsigned NOT NULL,
       pcv_value DECIMAL(4,3),
-      path VARCHAR(255)
+      path VARCHAR(255),
       created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       updated_at 
         TIMESTAMP 
