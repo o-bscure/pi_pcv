@@ -14,7 +14,7 @@ def callback_func(channel):
     global queue 
 
     #take picture to path
-    path = '/home/pi/pi_pcv/hardware_facing/image.png'
+    path = '/home/pi/pi_pcv/hardware_facing/pics/image.png'
     #push path onto queue
     queue.append(path)
 
