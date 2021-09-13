@@ -5,10 +5,13 @@ var remote = require('./remote.json');
 var crypto = require('crypto')
 var { blink_handle, stop_handle } = require('./hardware_facing/wraper')
 
-async function prepare_post_request(img_buf, file_type) {
+async function prepare_post_request(img_path_old, file_type) {
     //console.log(config)
     if (remote.run && remote.tank) {
 	const blink_p = await blink_handle()
+        const img_buf = fs.readFileSync(img_path_old)
+        fs.unlinkSync(img_path_old)
+
         const run = remote.run
         const tank = remote.tank
 
@@ -16,11 +19,11 @@ async function prepare_post_request(img_buf, file_type) {
             run: run,
             tank: Number(tank) + 1
         })
-        fs.writeFileSync('remote.json', new_remote)
+        fs.writeFileSync('/home/pi/pi_pcv/remote.json', new_remote)
         var j = 0;
 
         const imgHash = crypto.createHash('md5').update(img_buf).digest('hex')
-        const img_path = path.join(process.cwd(), `/pcv/public/upload_${imgHash}.${file_type}`)
+        const img_path = path.join(__dirname, `/pcv/public/upload_${imgHash}.${file_type}`)
         const data = {
             path: img_path,
             run: run,
@@ -38,12 +41,13 @@ async function prepare_post_request(img_buf, file_type) {
             })
             .then((res) => {
                 console.log(res.status, res.statusText, res.data)
-		blink_p.kill()
-		stop_handle()
+		        blink_p.kill()
+		        stop_handle()
             })
             .catch((e) => {
+                console.log("error processing file upload ")
                 console.error(e)
-		blink_p.kill()
+		        blink_p.kill()
             })
         })
 
@@ -53,14 +57,5 @@ async function prepare_post_request(img_buf, file_type) {
     
 }
 
-//example usage
-const imgPath = path.join(process.cwd(), '/image.png')
-fs.readFile(imgPath, (err, data) => {
-    if (err) {
-        console.error(err);
-        return
-    }
-    prepare_post_request(data, 'png')
-})
 
-//exports.prepare_post_request = prepare_post_request;
+prepare_post_request(process.argv[2], process.argv[3])
