@@ -59,8 +59,10 @@ export default class Home extends React.Component {
 
     render() {
         console.log(this.state)
+	
+	var bad_input = /(^\s*$)|(^\s+)/gi
 
-        if (this.state.isSet == undefined) {
+        if (this.state.isSet == undefined ) {
             var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-48 h-12 border-2 font-medium focus:outline-none "
             buttonType += "border-gray-100 "
         } else if (this.state.isSet == true) {
@@ -70,7 +72,7 @@ export default class Home extends React.Component {
             var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-48 h-12 border-2 font-medium focus:outline-none "
             buttonType += "border-red-400 "
         }
-        if (!this.state.run) {
+        if (!this.state.run || bad_input.test(this.state.run)) {
             buttonType += "cursor-not-allowed "
             var button_remote = <button disabled onClick={(e) => this.handleSubmit(e)} className={buttonType}>Set Remote</button>
         } else {
