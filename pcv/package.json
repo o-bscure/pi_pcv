@@ -3,8 +3,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start",
-    "migrate": "node scripts/migrate-db.js"
+    "start": "next start"
   },
   "dependencies": {
     "axios": "^0.21.1",

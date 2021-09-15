@@ -9,7 +9,8 @@ camera = PiCamera()
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(8, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-GPIO.setup(32, GPIO.OUT)
+GPIO.setup(32, GPIO.OUT) #green
+GPIO.setup(22, GPIO.OUT, initial=GPIO.LOW ) #red
 
 print("listening...")
 queue = []
@@ -21,19 +22,18 @@ def callback_func(channel):
     global buffer_num
 
     #take picture to path
-    GPIO.output(32, GPIO.HIGH)
+    GPIO.output(22, GPIO.HIGH)
     path = "/home/pi/pi_pcv/hardware_facing/pics/test{}.jpg".format(buffer_num)
     buffer_num += 1
     camera.capture(path)
-    print("* snapped *")
-    GPIO.output(32, GPIO.LOW)
+    GPIO.output(22, GPIO.LOW)
 
     #push path onto queue
     queue.append(path)
 
     return
 
-GPIO.add_event_detect(8, GPIO.FALLING, callback=callback_func, bouncetime=200)
+GPIO.add_event_detect(8, GPIO.FALLING, callback=callback_func, bouncetime=500)
 
 while True:
     if len(queue) == 0:
