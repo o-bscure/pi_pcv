@@ -14,9 +14,9 @@ while True:
     sleep(1)
     '''
     GPIO.output(32, GPIO.HIGH)
-    sleep(0.05)
+    sleep(0.3)
     GPIO.output(32, GPIO.LOW)
-    sleep(0.05)
+    sleep(0.3)
     #print("start signal ", i)
     i+=1
     #f = open('./test.txt', 'a')
