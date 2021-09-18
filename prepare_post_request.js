@@ -7,17 +7,19 @@ var { blink_handle, stop_handle } = require('./hardware_facing/wraper')
 
 async function prepare_post_request(img_path_old, file_type) {
     //console.log(config)
-    if (remote.run && remote.tank) {
+    if (remote.run && remote.tank && remote.volume) {
 	const blink_p = await blink_handle()
         const img_buf = fs.readFileSync(img_path_old)
         fs.unlinkSync(img_path_old)
 
         const run = remote.run
         const tank = remote.tank
+        const volume = remote.volume
 
         let new_remote = JSON.stringify({
             run: run,
-            tank: Number(tank) + 1
+            tank: Number(tank) + 1,
+            volume: volume
         })
         fs.writeFileSync('/home/pi/pi_pcv/remote.json', new_remote)
         var j = 0;
@@ -27,7 +29,8 @@ async function prepare_post_request(img_path_old, file_type) {
         const data = {
             path: img_path,
             run: run,
-            tank: tank
+            tank: tank,
+            volume: volume
         }
         fs.writeFile(img_path, img_buf, (err) => {
             if (err) throw err

@@ -16,6 +16,7 @@ export default class Upload extends React.Component {
         }
 
         this.handleRunSelect = this.handleRunSelect.bind(this);
+        this.handleVolumeSelect = this.handleVolumeSelect.bind(this);
         this.handleTankSelect = this.handleTankSelect.bind(this)
         this.handleFileSelect = this.handleFileSelect.bind(this);
         this.setTankNumbers = this.setTankNumbers.bind(this);
@@ -36,6 +37,23 @@ export default class Upload extends React.Component {
                     }
                 },
                 bad_tanks: []
+            }))
+        }
+    }
+
+    setVolumeGlobal(e, volume) {
+        e.preventDefault()
+        const file_keys = Object.keys(this.state.files)
+        for (let i=0; i<file_keys.length; i++) {
+            this.setState(prevState => ({
+                ...prevState,
+                files: {
+                    ...prevState.files,
+                    [file_keys[i]]: {
+                        ...prevState.files[file_keys[i]],
+                        volume: volume
+                    }
+                },
             }))
         }
     }
@@ -63,6 +81,22 @@ export default class Upload extends React.Component {
         }))
     }
 
+    handleVolumeSelect(event, filenumber) {
+        event.preventDefault()
+        var bad_tanks = find_bad_tanks(this.state.files, filenumber, this.state.files[filenumber].tank) 
+        this.setState(prevState => ({
+            ...prevState,
+            files: {
+                ...prevState.files,
+                [filenumber]: {
+                    ...prevState.files[filenumber],
+                    volume: event.target.value
+                }
+            },
+            bad_tanks: bad_tanks
+        }))
+    }
+
     handleFileSelect(event, filenumber) {
         event.preventDefault()
         const f = event.target.files[0]
@@ -85,6 +119,7 @@ export default class Upload extends React.Component {
             var formData = new FormData();
             let current_file = this.state.files[file_keys[i]];
             formData.append("file", current_file.img)
+            formData.append("volume", current_file.volume)
 
             this.setState(prevState => ({
                 ...prevState,
@@ -163,9 +198,20 @@ export default class Upload extends React.Component {
                 box_type = box_type.concat("border-gray-100")
             }
             tankrows.push(
-                <div key={i} className="flex flex-rows-1 h-10 place-content-center">
-                    <label className="flex flex-initial place-items-center mr-1">Tank No. </label>
-                    <input type="number" value={this.state.files[i].tank} onChange={(e) => this.handleTankSelect(e, i)} className={box_type}/>
+                <div key={i} className="flex flex-rows-1 h-10 place-content-evenly w-full">
+                    <div className="flex flex-row-1 flex-wrap place-content-center">
+                        <label htmlFor="tank" className="flex flex-initial place-items-center mr-1">Tank No. </label>
+                        <input type="number" name="tank" id="tank" value={this.state.files[i].tank} onChange={(e) => this.handleTankSelect(e, i)} className={box_type}/>
+                    </div>
+                    <div className="flex flex-row-1 flex-wrap place-content-center">
+                        <label htmlFor="volume" className="flex flex-initial place-items-center place-content-center p-1 h-full">Volume</label>
+                        <input type="number" name="volume" id="volume" value={this.state.files[i].volume} onChange={(ee) => this.handleVolumeSelect(ee, i)} className={box_type}/>
+                        <p className="place-self-center m-0.5">ul</p>
+                        <div className="flex p-1 place-items-center place-content-center h-full ">
+                            <button onClick={(e) => this.setVolumeGlobal(e, this.state.files[i].volume)} className="bg-gray-600 rounded-sm pl-2 pr-2 text-l 
+                            text-gray-200 focus:outline-none">Set All</button>
+                        </div>
+                    </div>
                 </div>
             )
         }

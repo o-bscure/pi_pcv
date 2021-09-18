@@ -27,14 +27,16 @@ const handler = async (req, res) => {
     form.parse(req, (err, fields, files) => {
       //console.log(err, fields, files) //file object being uploaded
       try {
-        //console.log(JSON.stringify(files))
+        //console.log(JSON.stringify(fields))
         const file_path = files.file.path
         const run = req.query.run
         const tank = req.query.tank
+        const volume = fields.volume
         const data = {
           path: file_path,
           run: run,
-          tank: tank
+          tank: tank,
+          volume: volume
         }
         axios({
           method: 'post',
