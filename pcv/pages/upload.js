@@ -191,7 +191,7 @@ export default class Upload extends React.Component {
 
         var tankrows = []
         for (let i=0; i<file_keys.length; i++) {
-            var box_type = "flex flex-initial place-self-center w-10 h-7 bg-gray-400 border-2 rounded-md focus:outline-none ";
+            var box_type = "flex flex-initial place-self-center w-16 h-7 bg-gray-400 border-2 rounded-md focus:outline-none ";
             if (typeof this.state.files[i].tank == "undefined" || this.state.bad_tanks.includes(this.state.files[i].tank)) {
                 box_type = box_type.concat("border-red-600")
             } else {
