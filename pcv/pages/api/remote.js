@@ -11,16 +11,18 @@ const handler = async (req, res) => {
         const body = req.body
         const run = body.run
         const tank = body.tank
+        const volume = body.volume
 
         const blink_p = await blink_handle()
         let new_remote = JSON.stringify({
             run: run,
-            tank: Number(tank)
+            tank: Number(tank),
+            volume: Number(volume)
         })
         fs.writeFileSync('./../remote.json', new_remote)
         blink_p.kill()
-	stop_handle()
-        res.status(200).json("remote run/tank set")
+	    stop_handle()
+        res.status(200).json("remote run/tank/volume set")
         
     } catch (e) {
         console.error(e)

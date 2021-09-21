@@ -11,7 +11,7 @@ const handler = async (req, res) => {
 
         const run = filter.clean(req.query.run)
         const [rows, fields]= await query(`
-                SELECT id, tank, pcv_value, created_at
+                SELECT id, tank, volume, pcv_value, created_at
                 FROM entries
                 WHERE run = ?
                 ORDER BY tank ASC;

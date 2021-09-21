@@ -9,11 +9,13 @@ export default class Home extends React.Component {
         this.state = {
             run: "",
             tank: 1,
+            volume: undefined,
             isSet: undefined 
         }
 
         this.handleRunSelect = this.handleRunSelect.bind(this)
         this.handleTankSelect = this.handleTankSelect.bind(this)
+        this.handleVolumeSelect = this.handleVolumeSelect.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -28,7 +30,16 @@ export default class Home extends React.Component {
     handleTankSelect(event) {
         event.preventDefault()
         this.setState(prevState => ({
-            tank: Number(event.target.value)
+            tank: Number(event.target.value),
+            isSet: undefined
+        }))
+    }
+
+    handleVolumeSelect(event) {
+        event.preventDefault()
+        this.setState(prevState => ({
+            volume: Number(event.target.value),
+            isSet: undefined
         }))
     }
 
@@ -40,7 +51,8 @@ export default class Home extends React.Component {
           timeout: 5000,
           data: {
               run: this.state.run,
-              tank: this.state.tank
+              tank: this.state.tank,
+              volume: this.state.volume
           }
         })
         .then((r) => { 
@@ -63,16 +75,16 @@ export default class Home extends React.Component {
 	var bad_input = /(^\s*$)|(^\s+)/gi
 
         if (this.state.isSet == undefined ) {
-            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-48 h-12 border-2 font-medium focus:outline-none "
+            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-7/12 h-12 border-2 font-medium focus:outline-none "
             buttonType += "border-gray-100 "
         } else if (this.state.isSet == true) {
-            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-48 h-12 border-2 font-medium focus:outline-none "
+            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-7/12 h-12 border-2 font-medium focus:outline-none "
             buttonType += "border-green-600 "
         } else {
-            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-48 h-12 border-2 font-medium focus:outline-none "
+            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-7/12 h-12 border-2 font-medium focus:outline-none "
             buttonType += "border-red-400 "
         }
-        if (!this.state.run || bad_input.test(this.state.run)) {
+        if (!this.state.run || bad_input.test(this.state.run) || (this.state.tank == undefined) || (this.state.tank < 1) || (this.state.volume == undefined) || (this.state.volume < 1)) {
             buttonType += "cursor-not-allowed "
             var button_remote = <button disabled onClick={(e) => this.handleSubmit(e)} className={buttonType}>Set Remote</button>
         } else {
@@ -95,8 +107,8 @@ export default class Home extends React.Component {
                     <span/>
                     <span/>
                     <div className="col-span-2 flex place-content-center flex-wrap w-full h-full">
-                        <div className="grid grid-cols-1 gap-y-2">
-                            <div className="flex w-full">
+                        <div className="grid grid-cols-1 gap-y-2 w-full">
+                            <div className="flex w-full place-content-center">
                                 <label className="flex flex-inital text-xl mr-1 place-items-center font-semibold">Run</label>
                                 <input type="text" id="run" value={this.state.run} onChange={(e) => this.handleRunSelect(e)} 
                                     className="flex flex-initial place-self-center w-16 h-7 bg-gray-400 border-2 border-gray-100 rounded-md focus:outline-none"/>
@@ -104,6 +116,10 @@ export default class Home extends React.Component {
                                 <label className="flex flex-initial text-xl ml-2 mr-1 place-items-center font-semibold">Tank</label>
                                 <input type="number" value={this.state.tank} onChange={(e) => this.handleTankSelect(e)} 
                                     className={"flex flex-initial place-self-center w-10 h-7 bg-gray-400 border-2 border-gray-100 rounded-md focus:outline-none"}/>
+                                <label className="flex flex-initial text-xl ml-2 mr-1 place-items-center font-semibold">Volume</label>
+                                <input type="number" value={this.state.volume} onChange={(e) => this.handleVolumeSelect(e)} 
+                                    className={"flex flex-initial place-self-center w-16 h-7 bg-gray-400 border-2 border-gray-100 rounded-md focus:outline-none"}/>
+                                <p className="place-self-center">ul</p>
                             </div>
 
                             {button_remote}

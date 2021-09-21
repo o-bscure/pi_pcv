@@ -16,9 +16,11 @@ const handler = async (req, res) => {
         }
   
     const body = req.body
+
     const file_path = body.path
     const run = body.run
     const tank = body.tank
+    const volume = body.volume
 
     const python = spawn('python', [visionScriptPath, run, tank, file_path]) 
     var pcv_reading;
@@ -35,10 +37,10 @@ const handler = async (req, res) => {
         res.status(500).json({message: "Internal script error"})
       } else {
         const results = await query(`
-          INSERT INTO entries (run, tank, pcv_value, path)
-          VALUES (?, ?, ?, ?)
+          INSERT INTO entries (run, tank, volume, pcv_value, path)
+          VALUES (?, ?, ?, ?, ?)
         `,
-        [filter.clean(run), tank, pcv_reading, file_path]
+        [filter.clean(run), tank, volume, pcv_reading, file_path]
         ) 
         .then((response) => {
           res.status(200).json({message: "The file has been uploaded, analyzed, and saved"})

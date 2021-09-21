@@ -158,7 +158,8 @@ export default class Upload extends React.Component {
                         ...prevState.tanks[tank_keys[i]],
                         results: {
                                 time: ['loading...',],
-                                pcv: ['loading...',]
+                                pcv: ['loading...',],
+                                volume: ['loading...']
                         }
                     }
                 }
@@ -172,9 +173,11 @@ export default class Upload extends React.Component {
             .then((r) => {
                 let time_results = [];
                 let pcv_results = [];
+                let volume_results = [];
                 for (let i=0; i<r.data.rows.length; i++) {
                     time_results.push(r.data.rows[i].created_at)    
                     pcv_results.push(r.data.rows[i].pcv_value)
+                    volume_results.push(r.data.rows[i].volume)
                 }
 
                 this.setState(prevState => ({
@@ -185,7 +188,8 @@ export default class Upload extends React.Component {
                             ...prevState.tanks[tank_keys[i]],
                             results: {
                                 time: time_results,
-                                pcv: pcv_results
+                                pcv: pcv_results,
+                                volume: volume_results,
                             },
                         }
                     }
@@ -226,7 +230,7 @@ export default class Upload extends React.Component {
                         <input type="text" value={this.state.tanks[tank_keys[i]].run} onChange={(e) => this.handleRunSelect(e, i)} className={box_type_run}/>
                         <div className="flex p-1 place-items-center place-content-center w-full ">
                             <button onClick={(e) => this.setRunGlobal(e, this.state.tanks[tank_keys[i]].run)} className="bg-gray-600 rounded-sm pl-2 pr-2 text-l 
-                            text-gray-200">Set All</button>
+                            text-gray-200 focus:outline-none">Set All</button>
                         </div>
                     </div>
                     <div className="flex flex-row place-items-center">
@@ -260,10 +264,12 @@ export default class Upload extends React.Component {
                             t = new Date(t.toUTCString()).toLocaleString()
                         }
                         var p = this.state.tanks[tank_keys[i]].results.pcv[j]
+                        var v = this.state.tanks[tank_keys[i]].results.volume[j]
                         results.push(
                             <div className="flex w-full place-content-evenly">
                                 <div className="flex ">{t}</div>
                                 <div className="flex mr-16 ml-6 ">{p}</div>
+                                <div className="flex mr-16 ml-6 ">{v}</div>
                             </div>
                         )
                     }
@@ -292,7 +298,7 @@ export default class Upload extends React.Component {
 
                 <div className="flex flex-col flex-nowrap gap-y-1">
                     <label className="flex flex-inital m-5 mt-8 place-self-center text-3xl font-semibold">Results</label>
-                    <div className="flex w-full place-content-evenly"><div className="text-xl ">Time</div><div className="text-xl">PCV</div></div>
+                    <div className="flex w-full place-content-evenly"><div className="text-xl mr-6 ml-4">Time</div><div className="text-xl">PCV</div><div className="text-xl">Vol (ul)</div></div>
                     <div className="flex flex-col flex-grow gap-y-3 ">{resultrows}</div>
                 </div>
             </form>

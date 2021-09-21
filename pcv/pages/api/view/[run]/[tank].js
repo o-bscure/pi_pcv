@@ -13,7 +13,7 @@ const handler = async (req, res) => {
         const tank = req.query.tank
 
         const [rows, fields] = await query(`
-                SELECT id, tank, pcv_value, created_at
+                SELECT id, tank, volume, pcv_value, created_at
                 FROM entries
                 WHERE run = ?
                 AND tank = ?
@@ -25,6 +25,8 @@ const handler = async (req, res) => {
                 res.status(500).json("the query failed")
                 return
             })
+
+        console.log(run, rows)
 
         res.status(200).json({run, rows})
         return 
