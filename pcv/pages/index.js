@@ -75,13 +75,13 @@ export default class Home extends React.Component {
 	var bad_input = /(^\s*$)|(^\s+)/gi
 
         if (this.state.isSet == undefined ) {
-            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-7/12 h-12 border-2 font-medium focus:outline-none "
+            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-64 h-12 border-2 font-medium focus:outline-none "
             buttonType += "border-gray-100 "
         } else if (this.state.isSet == true) {
-            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-7/12 h-12 border-2 font-medium focus:outline-none "
+            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-64 h-12 border-2 font-medium focus:outline-none "
             buttonType += "border-green-600 "
         } else {
-            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-7/12 h-12 border-2 font-medium focus:outline-none "
+            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-64 h-12 border-2 font-medium focus:outline-none "
             buttonType += "border-red-400 "
         }
         if (!this.state.run || bad_input.test(this.state.run) || (this.state.tank == undefined) || (this.state.tank < 1) || (this.state.volume == undefined) || (this.state.volume < 1)) {
