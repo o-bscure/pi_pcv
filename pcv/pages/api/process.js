@@ -5,7 +5,7 @@ import Filter from 'bad-words'
 const filter = new Filter()
 
 const path = require('path')
-const visionScriptPath = path.join(process.cwd(), '/scripts/middle.py')
+const visionScriptPath = path.join(process.cwd(), '/scripts/pcv_script.py')
 
 
 const handler = async (req, res) => {
@@ -22,7 +22,7 @@ const handler = async (req, res) => {
     const tank = body.tank
     const volume = body.volume
 
-    const python = spawn('python', [visionScriptPath, run, tank, file_path]) 
+    const python = spawn('python', [visionScriptPath, file_path]) 
     var pcv_reading;
     python.stdout.on('data', (data) => {
       pcv_reading = Number(data.toString())
