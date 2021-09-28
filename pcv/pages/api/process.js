@@ -22,7 +22,7 @@ const handler = async (req, res) => {
     const tank = body.tank
     const volume = body.volume
 
-    const python = spawn('python', [visionScriptPath, file_path]) 
+    const python = spawn('python3', [visionScriptPath, file_path]) 
     var pcv_reading;
     python.stdout.on('data', (data) => {
       pcv_reading = Number(data.toString())
