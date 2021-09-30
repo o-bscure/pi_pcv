@@ -33,7 +33,7 @@ def callback_func(channel):
 
     return
 
-GPIO.add_event_detect(8, GPIO.FALLING, callback=callback_func, bouncetime=500)
+GPIO.add_event_detect(8, GPIO.FALLING, callback=callback_func, bouncetime=700)
 
 while True:
     if len(queue) == 0:
