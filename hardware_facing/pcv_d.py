@@ -28,22 +28,29 @@ def callback_func(channel):
     global queue 
     global buffer_num
 
-    #take picture to path
-    GPIO.output(22, GPIO.HIGH)
-    GPIO.output(16, GPIO.HIGH)
-    GPIO.output(36, GPIO.HIGH)
-    #gpio output a white LED
-    path = "/home/pi/pi_pcv/hardware_facing/pics/test{}.jpg".format(buffer_num)
-    buffer_num += 1
     if has_cam:
+        #take picture to path
+        GPIO.output(22, GPIO.HIGH)
+        GPIO.output(16, GPIO.HIGH)
+        GPIO.output(36, GPIO.HIGH)
+        #gpio output a white LED
+        path = "/home/pi/pi_pcv/hardware_facing/pics/test{}.jpg".format(buffer_num)
+        buffer_num += 1
         camera.capture(path)
-    GPIO.output(16, GPIO.LOW)
-    GPIO.output(22, GPIO.LOW)
-    GPIO.output(36, GPIO.LOW)
+        GPIO.output(16, GPIO.LOW)
+        GPIO.output(22, GPIO.LOW)
+        GPIO.output(36, GPIO.LOW)
 
-    #push path onto queue
-    if has_cam:
+        #push path onto queue
         queue.append(path)
+    else:
+        print("no cam")
+        for _ in range(3):
+            GPIO.output(22, GPIO.HIGH)
+            time.sleep(0.1)
+            GPIO.output(22, GPIO.LOW)
+            time.sleep(0.1)
+
 
     return
 

@@ -1,0 +1,12 @@
+
+@reboot npm start --prefix /home/pi/pi_pcv/pcv/ >> /home/pi/pi_pcv/logs/next_log.log 2>&1
+
+@reboot python3 /home/pi/pi_pcv/hardware_facing/pcv_d.py >> /home/pi/pi_pcv/logs/hardware_log.log 2>&1
+
+30 3 * * * npm restart /home/pi/pi_pcv/pcv/
+
+#30 3 * * * python3 /home/pi/pi_pcv/backup.py >> /home/pi/pi_pcv/cronlog.txt
+
+30 3 * * * service mysql restart
+
+0 0 * * 0 reboot
