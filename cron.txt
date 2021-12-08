@@ -1,12 +1,16 @@
+@reboot npm start --prefix /home/pi/pi_pcv/pcv/ >> /home/pi/pi_pcv/logs/next.log 2>&1
 
-@reboot npm start --prefix /home/pi/pi_pcv/pcv/ >> /home/pi/pi_pcv/logs/next_log.log 2>&1
+@reboot python3 /home/pi/pi_pcv/hardware_facing/pcv_d.py >> /home/pi/pi_pcv/logs/hardware.log 2>&1
 
-@reboot python3 /home/pi/pi_pcv/hardware_facing/pcv_d.py >> /home/pi/pi_pcv/logs/hardware_log.log 2>&1
+#every day at 3:30 am
+30 3 * * * npm restart /home/pi/pi_pcv/pcv/ >> /home/pi/pi_pcv/logs/next.log 2>&1
 
-30 3 * * * npm restart /home/pi/pi_pcv/pcv/
+#every day at 3:30 am
+30 3 * * * python3 /home/pi/pi_pcv/pcv/scripts/compress.py >> /home/pi/pi_pcv/cronlog.txt 2>&1
 
-#30 3 * * * python3 /home/pi/pi_pcv/backup.py >> /home/pi/pi_pcv/cronlog.txt
-
+#every day at 3:30 am
 30 3 * * * service mysql restart
 
-0 0 * * 0 reboot
+#every sunday at 3:30 am
+30 3 * * 0 reboot
+

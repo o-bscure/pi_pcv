@@ -1,6 +1,0 @@
-
-> @ start /home/pi/pi_pcv/pcv
-> next start
-
-ready - started server on 0.0.0.0:3000, url: http://localhost:3000
-info  - Loaded env from /home/pi/pi_pcv/pcv/.env.local
