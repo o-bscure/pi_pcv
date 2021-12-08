@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import axios from 'axios'
+import { ClipboardCopy } from '../components/clipboard_copy.js'
 //TODO: results 'recent' only default, with reuturn 'all' queries option
 //filter run to not have only whitespace
 
@@ -23,10 +24,13 @@ export default class Upload extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+	    isCopied: false,
+	    toCopy: false,
             tanks: {
                 0: {
                     run: "",
-                    tank: undefined 
+                    tank: undefined,
+		    results: undefined
                 }
             },
         }
@@ -40,7 +44,41 @@ export default class Upload extends React.Component {
         this.setRunGlobal = this.setRunGlobal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
+
+	/*
+    componentDidUpdate = () => {
+	    if (this.state.to_copy == true) {
+		    console.log("COPYING...")
+		    var string_to_copy = ``
+		    for (let i=0; i<Object.keys(this.state.tanks).length; i++) {
+		    	if ((typeof this.state.tanks[i].results) != "undefined" ) {
+		    	    var time = this.state.tanks[i].results.time
+		    	    var pcv = this.state.tanks[i].results.pcv
+		    	    var vol = this.state.tanks[i].results.volume
+		    	    for (let j=0; j<pcv.length; j++) {
+		    	    	string_to_copy += `${time[j]}\t${pcv[j]}\t${vol[j]}\n`
+		    	    }
+		    	}
+		    }
+        	if (typeof window === 'object') {
+			console.log(string_to_copy)
+        	    if (window.isSecureContext) {
+		          navigator.clipboard.writeText(`${string_to_copy}`)
+        	    } else {
+        	        console.log("insecure context for copying to clipboard")
+        	    }
+
+        	} else {
+			console.log("not in a window")
+		};
+		this.setState(prevState => ({
+			...prevState,
+			to_copy: false
+		}))
+	    }
+    }
+    */
+
     setTankNumbers(e) {
         e.preventDefault()
         const tank_keys = Object.keys(this.state.tanks)
@@ -182,6 +220,7 @@ export default class Upload extends React.Component {
 
                 this.setState(prevState => ({
                     ...prevState,
+			toCopy: true,
                     tanks: {
                         ...prevState.tanks,
                         [tank_keys[i]]: { 
@@ -280,6 +319,23 @@ export default class Upload extends React.Component {
             }
         }
 
+	    if (this.state.toCopy) {
+		    var string_to_copy = ``
+		    for (let i=0; i<Object.keys(this.state.tanks).length; i++) {
+		    	if ((typeof this.state.tanks[i].results) != "undefined" ) {
+		    	    var time = this.state.tanks[i].results.time
+		    	    var pcv = this.state.tanks[i].results.pcv
+		    	    var vol = this.state.tanks[i].results.volume
+		    	    for (let j=0; j<pcv.length; j++) {
+		    	    	string_to_copy += `${time[j]}\t${pcv[j]}\t${vol[j]}\n`
+		    	    }
+		    	}
+		    }
+		    var copy_button = <ClipboardCopy copyText={string_to_copy} />
+	    } else {
+		    var copy_button = <div></div>
+	    }
+
         return (
           <div className="grid grid-cols-1 w-screen h-screen bg-gray-400">
             <div className="flex flex-grow">
@@ -297,7 +353,9 @@ export default class Upload extends React.Component {
                 </div>
 
                 <div className="flex flex-col flex-nowrap gap-y-1">
+		<div className="flex flex-row place-content-center">
                     <label className="flex flex-inital m-5 mt-8 place-self-center text-3xl font-semibold">Results</label>
+		</div>
                     <div className="flex w-full place-content-evenly"><div className="text-xl mr-6 ml-4">Time</div><div className="text-xl">PCV</div><div className="text-xl">Vol (ul)</div></div>
                     <div className="flex flex-col flex-grow gap-y-3 ">{resultrows}</div>
                 </div>
