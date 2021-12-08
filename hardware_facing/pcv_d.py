@@ -4,7 +4,11 @@ import RPi.GPIO as GPIO
 from picamera import PiCamera
 from time import sleep
 
-camera = PiCamera()
+try:
+    camera = PiCamera()
+    has_cam = True
+except:
+    has_cam = False
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
@@ -31,13 +35,15 @@ def callback_func(channel):
     #gpio output a white LED
     path = "/home/pi/pi_pcv/hardware_facing/pics/test{}.jpg".format(buffer_num)
     buffer_num += 1
-    camera.capture(path)
+    if has_cam:
+        camera.capture(path)
     GPIO.output(16, GPIO.LOW)
     GPIO.output(22, GPIO.LOW)
     GPIO.output(36, GPIO.LOW)
 
     #push path onto queue
-    queue.append(path)
+    if has_cam:
+        queue.append(path)
 
     return
 
