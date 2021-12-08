@@ -1,0 +1,152 @@
+
+> @ start /home/pi/pi_pcv/pcv
+> next start
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/pi/pi_pcv/pcv/.env.local
+pcv read as: -3.35
+pcv read as: -1.145
+closing with status code: 0
+closing with status code: 0
+test [
+  BinaryRow {
+    id: 1,
+    tank: 1,
+    volume: 500,
+    pcv_value: '-1.145',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test [
+  BinaryRow {
+    id: 2,
+    tank: 2,
+    volume: 500,
+    pcv_value: '-3.350',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test [
+  BinaryRow {
+    id: 1,
+    tank: 1,
+    volume: 500,
+    pcv_value: '-1.145',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test []
+test [
+  BinaryRow {
+    id: 2,
+    tank: 2,
+    volume: 500,
+    pcv_value: '-3.350',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+
+> @ start /home/pi/pi_pcv/pcv
+> next start
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/pi/pi_pcv/pcv/.env.local
+
+> @ start /home/pi/pi_pcv/pcv
+> next start
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/pi/pi_pcv/pcv/.env.local
+test [
+  BinaryRow {
+    id: 1,
+    tank: 1,
+    volume: 500,
+    pcv_value: '-1.145',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test [
+  BinaryRow {
+    id: 2,
+    tank: 2,
+    volume: 500,
+    pcv_value: '-3.350',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test [
+  BinaryRow {
+    id: 2,
+    tank: 2,
+    volume: 500,
+    pcv_value: '-3.350',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test [
+  BinaryRow {
+    id: 1,
+    tank: 1,
+    volume: 500,
+    pcv_value: '-1.145',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test [
+  BinaryRow {
+    id: 1,
+    tank: 1,
+    volume: 500,
+    pcv_value: '-1.145',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test [
+  BinaryRow {
+    id: 2,
+    tank: 2,
+    volume: 500,
+    pcv_value: '-3.350',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test [
+  BinaryRow {
+    id: 1,
+    tank: 1,
+    volume: 500,
+    pcv_value: '-1.145',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test [
+  BinaryRow {
+    id: 2,
+    tank: 2,
+    volume: 500,
+    pcv_value: '-3.350',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test [
+  BinaryRow {
+    id: 1,
+    tank: 1,
+    volume: 500,
+    pcv_value: '-1.145',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test [
+  BinaryRow {
+    id: 2,
+    tank: 2,
+    volume: 500,
+    pcv_value: '-3.350',
+    created_at: 2021-12-08T02:08:29.000Z
+  }
+]
+test []
+test []
+test []
