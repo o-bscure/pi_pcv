@@ -39,7 +39,7 @@ async function prepare_post_request(img_path_old, file_type) {
             axios({
                 method: 'post',
                 url: `http://localhost:3000/api/process`,
-                timeout: 5000,
+                timeout: 30000,
                 data: data,
             })
             .then((res) => {

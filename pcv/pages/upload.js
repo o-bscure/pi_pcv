@@ -136,14 +136,14 @@ export default class Upload extends React.Component {
             axios({
                 method: 'post',
                 url: `/api/upload/${this.state.run}/${current_file.tank}`,
-                timeout: 5000,
+                timeout: 30000,
                 data: formData,
             })
             .then((response) => {
                 axios({
                     method: 'get',
                     url: `/api/view/${this.state.run}/${current_file.tank}`,
-                    timeout: 5000,
+                    timeout: 30000,
                 })
                 .then((r) => {
                     //console.log(r)

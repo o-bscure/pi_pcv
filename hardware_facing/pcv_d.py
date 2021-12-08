@@ -11,6 +11,9 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(8, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.setup(32, GPIO.OUT) #green
 GPIO.setup(22, GPIO.OUT, initial=GPIO.LOW ) #red
+GPIO.setup(16, GPIO.OUT) #white
+GPIO.setup(36, GPIO.OUT) #white
+
 
 print("listening...")
 queue = []
@@ -23,10 +26,15 @@ def callback_func(channel):
 
     #take picture to path
     GPIO.output(22, GPIO.HIGH)
+    GPIO.output(16, GPIO.HIGH)
+    GPIO.output(36, GPIO.HIGH)
+    #gpio output a white LED
     path = "/home/pi/pi_pcv/hardware_facing/pics/test{}.jpg".format(buffer_num)
     buffer_num += 1
     camera.capture(path)
+    GPIO.output(16, GPIO.LOW)
     GPIO.output(22, GPIO.LOW)
+    GPIO.output(36, GPIO.LOW)
 
     #push path onto queue
     queue.append(path)

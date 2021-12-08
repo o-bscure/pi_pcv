@@ -41,7 +41,7 @@ const handler = async (req, res) => {
         axios({
           method: 'post',
           url: 'http://localhost:3000/api/process/',
-          timeout: 5000,
+          timeout: 30000,
           data: data
         })
         .then((r) => {
@@ -49,7 +49,7 @@ const handler = async (req, res) => {
         })
         .catch((e) => {
           console.error(e)
-          res.status(500).json({message: "uploaded, but pcv script or database error"})
+          res.status(500).json({message: "uploaded, but pcv script or database error. /api/process errored out"})
         })
 
       } catch (e) {
