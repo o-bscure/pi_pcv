@@ -3,10 +3,11 @@ import time
 import RPi.GPIO as GPIO
 from picamera import PiCamera
 from time import sleep
-
+from ctypes import *
 try:
     camera = PiCamera()
     has_cam = True
+    arducam_vcm= CDLL('./libarducam_vcm.so')
 except:
     has_cam = False
 
@@ -23,6 +24,9 @@ print("listening...")
 queue = []
 buffer_num = 0
 
+def focusing(val):
+    arducam_vcm.vcm_write(val)
+    
 def callback_func(channel):
     print("request")
     global queue 
@@ -36,6 +40,9 @@ def callback_func(channel):
         #gpio output a white LED
         path = "/home/pi/pi_pcv/hardware_facing/pics/test{}.jpg".format(buffer_num)
         buffer_num += 1
+        arducam_vcm.vcm_init()
+        focusing(int(512))
+        time.sleep(1)
         camera.capture(path)
         GPIO.output(16, GPIO.LOW)
         GPIO.output(22, GPIO.LOW)

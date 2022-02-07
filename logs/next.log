@@ -171,3 +171,460 @@ npm ERR! This is probably not a problem with npm. There is likely additional log
 
 npm ERR! A complete log of this run can be found in:
 npm ERR!     /root/.npm/_logs/2021-12-08T20_12_14_128Z-debug.log
+
+> @ start /home/pi/pi_pcv/pcv
+> next start
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/pi/pi_pcv/pcv/.env.local
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+
+> @ start /home/pi/pi_pcv/pcv
+> next start
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/pi/pi_pcv/pcv/.env.local
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+blinking start
+turning light off
+blinking paused
+light off
+pcv read as: -2.608
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: -2.687
+closing with status code: 0
+sv11 [
+  BinaryRow {
+    id: 18,
+    tank: 1,
+    volume: 200,
+    pcv_value: '-2.608',
+    created_at: 2021-12-10T19:13:49.000Z
+  }
+]
+sv11 [
+  BinaryRow {
+    id: 19,
+    tank: 2,
+    volume: 200,
+    pcv_value: '9.999',
+    created_at: 2021-12-10T19:13:51.000Z
+  }
+]
+sv11 [
+  BinaryRow {
+    id: 20,
+    tank: 3,
+    volume: 200,
+    pcv_value: '9.999',
+    created_at: 2021-12-10T19:13:53.000Z
+  }
+]
+sv11 [
+  BinaryRow {
+    id: 21,
+    tank: 4,
+    volume: 200,
+    pcv_value: '-2.687',
+    created_at: 2021-12-10T19:13:55.000Z
+  }
+]
+sv11 []
+pcv read as: -5.205
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: -3.633
+closing with status code: 0
+pcv read as: -1.502
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: -1.101
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+
+> @ start /home/pi/pi_pcv/pcv
+> next start
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/pi/pi_pcv/pcv/.env.local
+
+> @ start /home/pi/pi_pcv/pcv
+> next start
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/pi/pi_pcv/pcv/.env.local
+
+> @ start /home/pi/pi_pcv/pcv
+> next start
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/pi/pi_pcv/pcv/.env.local
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: -2.267
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: -0.154
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: -0.006
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+
+> @ start /home/pi/pi_pcv/pcv
+> next start
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/pi/pi_pcv/pcv/.env.local
+pcv read as: -1.051
+closing with status code: 0
+pcv read as: -1.119
+closing with status code: 0
+pcv read as: -0.748
+closing with status code: 0
+
+> @ start /home/pi/pi_pcv/pcv
+> next start
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/pi/pi_pcv/pcv/.env.local
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: -0.865
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+pcv read as: -0.933
+closing with status code: 0
+pcv read as: 9.999
+closing with status code: 0
+
+> @ start /home/pi/pi_pcv/pcv
+> next start
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/pi/pi_pcv/pcv/.env.local
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2021-12-23T11_30_04_192Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2021-12-24T11_30_02_147Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2021-12-25T11_30_01_952Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2021-12-26T11_30_02_755Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2021-12-27T11_30_02_616Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2021-12-28T11_30_02_081Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2021-12-29T11_30_02_368Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2021-12-30T11_30_02_104Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2021-12-31T11_30_02_791Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-01-01T11_30_02_522Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-01-02T11_30_02_489Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-01-03T11_30_02_472Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-01-04T11_30_02_688Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-01-05T11_30_02_051Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-01-06T11_30_02_822Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-01-27T11_30_03_392Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-01-28T11_30_02_824Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-01-29T11_30_02_009Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-01-30T11_30_02_160Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-01-31T11_30_02_370Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-02-01T11_30_02_513Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-02-02T11_30_02_714Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-02-03T11_30_02_909Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-02-04T11_30_02_039Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-02-05T11_30_02_225Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-02-06T11_30_02_445Z-debug.log
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path /root/package.json
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, open '/root/package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2022-02-07T11_30_02_645Z-debug.log
