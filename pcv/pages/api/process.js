@@ -32,9 +32,10 @@ const handler = async (req, res) => {
       console.error(`stderr: ${data}`)
     })
     python.on('close', async (code) => {
-      console.log(`closing with status code: ${code}`)
+      console.log(`python visualization script closing with status code: ${code}`)
       if (code != 0) {
-        res.status(500).json({message: "Internal script error"})
+        console.error("Internal python visualization script script error")
+        res.status(500).json({message: "Internal python visualization script script error"})
       } else {
         const results = await query(`
           INSERT INTO entries (run, tank, volume, pcv_value, path)
@@ -43,10 +44,11 @@ const handler = async (req, res) => {
         [filter.clean(run), tank, volume, pcv_reading, file_path]
         ) 
         .then((response) => {
+          console.log("Database upload successful")
           res.status(200).json({message: "The file has been uploaded, analyzed, and saved"})
         })
         .catch((e) => {
-          console.error(e.message)
+          console.error(`Database response: ${e.message}`)
           res.status(500).json({message: "Database upload error"})
         })
       }

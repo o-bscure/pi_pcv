@@ -42,7 +42,8 @@ def callback_func(channel):
         buffer_num += 1
         arducam_vcm.vcm_init()
         focusing(int(512))
-        time.sleep(1)
+        #focus time commented out. may be unnecssary unless focusing() is async
+        #time.sleep(1)
         camera.capture(path)
         GPIO.output(16, GPIO.LOW)
         GPIO.output(22, GPIO.LOW)
@@ -61,7 +62,7 @@ def callback_func(channel):
 
     return
 
-GPIO.add_event_detect(8, GPIO.FALLING, callback=callback_func, bouncetime=700)
+GPIO.add_event_detect(8, GPIO.RISING, callback=callback_func, bouncetime=700)
 
 while True:
     if len(queue) == 0:

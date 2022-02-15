@@ -3,12 +3,12 @@ const path = require('path')
 var axios = require('axios')
 var remote = require('./remote.json');
 var crypto = require('crypto')
-var { blink_handle, stop_handle } = require('./hardware_facing/wraper')
+var { blink_handle_green, stop_handle_green, blink_handle_red, stop_handle_red } = require('./hardware_facing/wraper')
 
 async function prepare_post_request(img_path_old, file_type) {
     //console.log(config)
     if (remote.run && remote.tank && remote.volume) {
-	const blink_p = await blink_handle()
+	const blink_p = await blink_handle_green()
         const img_buf = fs.readFileSync(img_path_old)
         fs.unlinkSync(img_path_old)
 
@@ -45,12 +45,14 @@ async function prepare_post_request(img_path_old, file_type) {
             .then((res) => {
                 console.log(res.status, res.statusText, res.data)
 		        blink_p.kill()
-		        stop_handle()
+		        stop_handle_green()
             })
             .catch((e) => {
-                console.log("error processing file upload ")
-                console.error(e)
 		        blink_p.kill()
+                stop_handle_green()
+                const error_p = await blink_handle_red()
+                console.log(`error processing file upload. message: ${e}`)
+                console.error(e)
             })
         })
 

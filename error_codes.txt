@@ -1,0 +1,5 @@
+(perpetual) solid red light - hardware/camera error
+(during push) solid red light - camera is taking picture, do not queue new request
+blinking red light - software (viz script, api, or database) error
+blinking green - normal. processing requests good to take pictures.
+solid green - ?
