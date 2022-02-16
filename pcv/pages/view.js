@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Head from 'next/head'
 import axios from 'axios'
 import { ClipboardCopy } from '../components/clipboard_copy.js'
+import { exportButton } from '../components/exportButton.js'
+
 //TODO: results 'recent' only default, with reuturn 'all' queries option
 //filter run to not have only whitespace
 
@@ -367,6 +369,7 @@ export default class Upload extends React.Component {
                     <button onClick={(e) => this.setTankNumbers(e)} className="flex flex-shrink place-self-center bg-gray-600 m-3 p-6 rounded-t-md 
                         border-2 border-gray-200 font-medium active:bg-red-600 focus:outline-none">Auto</button>
                     {submitButton}
+		    {exportButton}
                     <Link href="/"><div className="flex flex-shrink place-self-center bg-gray-600 m-3 p-6 rounded-t-md cursor-pointer
                         border-2 border-gray-200 font-medium active:bg-red-600 focus:outline-none">Back</div></Link>
                 </div>

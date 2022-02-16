@@ -100,7 +100,7 @@ module.exports = {
     blink_handle_green: blink_handle_green,
     stop_handle_green: stop_handle_green,
     blink_handle_red: blink_handle_red,
-    stop_handle_red: stop_handle_red,
+    stop_handle_red: stop_handle_red
 
 }
 

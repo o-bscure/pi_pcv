@@ -50,7 +50,7 @@ async function prepare_post_request(img_path_old, file_type) {
             .catch((e) => {
 		        blink_p.kill()
                 stop_handle_green()
-                const error_p = await blink_handle_red()
+                blink_handle_red()
                 console.log(`error processing file upload. message: ${e}`)
                 console.error(e)
             })
