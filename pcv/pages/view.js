@@ -311,6 +311,26 @@ export default class Upload extends React.Component {
                         font-medium border-4 border-green-500 focus:outline-none hover:ring hover:ring-gray-300 active:bg-indigo-300">Submit</button>
         }
 
+	    var results_good = true
+	    for (let i=0; i<Object.keys(this.state.tanks).length; i++) {
+		    results_good = results_good && (typeof this.state.tanks[i].results != "undefined")
+	    }
+	    if (results_good && (Object.keys(this.state.tanks).length != 0)) {
+		    var flag_button = <button onClick={(e) => this.handleToFlag(e)} className="flex flex-shrink place-self-center place-items-center bg-gray-600 m-2 mt-4 p-1 px-2 rounded-md 
+                        border border-gray-200 ">flag</button>
+	    } else {
+		    var flag_button = <div></div>
+		    this.state.toFlag = false
+	    }
+
+	if (this.state.toFlag) {
+		var results_header = <div className="flex w-full place-content-evenly"><div className="text-xl mr-6 ml-4">Time</div><div className="text-xl ">PCV</div><div className="text-xl ">Vol (ul)</div>
+			<div className="w-10"></div>
+			</div>
+	} else {
+		var results_header = <div className="flex w-full place-content-evenly"><div className="text-xl mr-6 ml-4">Time</div><div className="text-xl">PCV</div><div className="text-xl">Vol (ul)</div></div>
+	}
+
         var resultrows = []
         for (let i=0; i<tank_keys.length; i++) {
             if (typeof this.state.tanks[tank_keys[i]].results != 'undefined' && (this.state.tanks[tank_keys[i]].results.pcv.length == this.state.tanks[tank_keys[i]].results.time.length)) {
@@ -381,16 +401,6 @@ export default class Upload extends React.Component {
 		    var copy_button = <div></div>
 	    }
 
-	    var results_good = true
-	    for (let i=0; i<Object.keys(this.state.tanks).length; i++) {
-		    results_good = results_good && (typeof this.state.tanks[i].results != "undefined")
-	    }
-	    if (results_good) {
-		    var flag_button = <button onClick={(e) => this.handleToFlag(e)} className="flex flex-shrink place-self-center place-items-center bg-gray-600 m-2 mt-4 p-1 px-2 rounded-md 
-                        border border-gray-200 ">flag</button>
-	    } else {
-		    var flag_button = <div></div>
-	    }
 
         return (
           <div className="grid grid-cols-1 w-screen h-screen bg-gray-400">
@@ -413,7 +423,7 @@ export default class Upload extends React.Component {
                     <label className="flex flex-inital m-5 mt-8 place-self-center text-3xl font-semibold">Results</label>
 		    {flag_button}
 		</div>
-                    <div className="flex w-full place-content-evenly"><div className="text-xl mr-6 ml-4">Time</div><div className="text-xl">PCV</div><div className="text-xl">Vol (ul)</div></div>
+                    {results_header}
                     <div className="flex flex-col flex-grow gap-y-3 ">{resultrows}</div>
                 </div>
             </form>
