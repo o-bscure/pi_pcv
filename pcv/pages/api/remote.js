@@ -1,4 +1,4 @@
-var { blink_handle, stop_handle } = require('../../../hardware_facing/wraper')
+var { blink_handle_red, stop_handle_red} = require('../../../hardware_facing/wraper')
 var fs = require('fs')
 
 const handler = async (req, res) => {
@@ -13,7 +13,7 @@ const handler = async (req, res) => {
         const tank = body.tank
         const volume = body.volume
 
-        const blink_p = await blink_handle()
+        const blink_p = await blink_handle_red()
         let new_remote = JSON.stringify({
             run: run,
             tank: Number(tank),
@@ -21,10 +21,11 @@ const handler = async (req, res) => {
         })
         fs.writeFileSync('./../remote.json', new_remote)
         blink_p.kill()
-	    stop_handle()
+	    stop_handle_red()
         res.status(200).json("remote run/tank/volume set")
         
     } catch (e) {
+	blink_hanle_red()
         console.error(e)
         res.status(500).json(e)
         return

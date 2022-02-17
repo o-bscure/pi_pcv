@@ -22,6 +22,7 @@ this.state = {
                     results:  {
                             time: [x,x,x,x,]
                             pcv: [y,y,y,y,]
+			    flagged: [t,f,t,f]
                     }
                 }
             },
@@ -34,6 +35,7 @@ export default class Upload extends React.Component {
 	    isCopied: false,
 	    toCopy: false,
 	    toFlag: false,
+	    checked: 0,
             tanks: {
                 0: {
                     run: "",
@@ -43,6 +45,9 @@ export default class Upload extends React.Component {
             },
         }
 	
+	this.handleCheck = this.handleCheck.bind(this);
+	this.handleSampleNum = this.handleSampleNum.bind(this);
+	this.handleFlag = this.handleFlag.bind(this);
 	this.handleToFlag = this.handleToFlag.bind(this);
         this.handleRunSelect = this.handleRunSelect.bind(this);
         this.handleTankSelect = this.handleTankSelect.bind(this)
@@ -88,17 +93,60 @@ export default class Upload extends React.Component {
     }
     */
 
+    handleCheck(e) {
+	    e.preventDefault()
+	    var all_runs_same = true
+	    this.setState({
+		    checked: 1, //0=undefined, 1=good, 2=bad
+	    })
+    }
+
+    handleSampleNum(e, tank_index, result_index) {
+	    e.preventDefault()
+	    var new_num = e.target.value
+	    var current_status = this.state.tanks[tank_index].results.sample_num[result_index]
+	    var new_list = this.state.tanks[tank_index].results.sample_num
+	    new_list[result_index] = new_num
+	    this.setState(prevState => ({
+		    ...prevState,
+		    tanks: {
+			    ...prevState.tanks,
+			    [tank_index]: {
+				    ...prevState.tanks[tank_index],
+				    results: {
+					    ...prevState.tanks[tank_index].results,
+					    sample_num: new_list,
+				    }
+			    }
+		    }
+	    }))
+    }
+
+    handleFlag(e, tank_index, result_index) {
+	    e.preventDefault()
+	    var current_status = this.state.tanks[tank_index].results.flagged[result_index]
+	    var new_list = this.state.tanks[tank_index].results.flagged
+	    new_list[result_index] = !current_status
+	    this.setState(prevState => ({
+		    ...prevState,
+		    tanks: {
+			    ...prevState.tanks,
+			    [tank_index]: {
+				    ...prevState.tanks[tank_index],
+				    results: {
+					    ...prevState.tanks[tank_index].results,
+					    flagged: new_list,
+				    }
+			    }
+		    }
+	    }))
+    }
+
     handleToFlag(e) {
 	    e.preventDefault()
-	    if (this.state.toFlag) {
-		    this.setState({
-			    toFlag: false
-		    })
-	    } else {
-		    this.setState({
-			    toFlag: true
-		    })
-	    }
+	    this.setState({
+		    toFlag: !(this.state.toFlag)
+	    })
     }
 
     setTankNumbers(e) {
@@ -235,10 +283,14 @@ export default class Upload extends React.Component {
                 let time_results = [];
                 let pcv_results = [];
                 let volume_results = [];
+		let flag_init = []
+		let sample_num = []
                 for (let i=0; i<r.data.rows.length; i++) {
                     time_results.push(r.data.rows[i].created_at)    
                     pcv_results.push(r.data.rows[i].pcv_value)
                     volume_results.push(r.data.rows[i].volume)
+		    flag_init.push(false)
+		    sample_num.push(i+2)
                 }
 
                 this.setState(prevState => ({
@@ -252,6 +304,8 @@ export default class Upload extends React.Component {
                                 time: time_results,
                                 pcv: pcv_results,
                                 volume: volume_results,
+				flagged: flag_init,
+				sample_num: sample_num,
                             },
                         }
                     }
@@ -312,22 +366,32 @@ export default class Upload extends React.Component {
         }
 
 	    var results_good = true
+	    var tank_nums_only = []
 	    for (let i=0; i<Object.keys(this.state.tanks).length; i++) {
-		    results_good = results_good && (typeof this.state.tanks[i].results != "undefined")
+		    results_good = results_good
+			    && (typeof this.state.tanks[tank_keys[i]].results != "undefined") //results are not undefined
+		    	    && (this.state.tanks[tank_keys[i]].results.pcv[0] != 'loading...') //results are not temporary
+			    && (this.state.tanks[tank_keys[i]].results.pcv.length != 0) //results count >1
+		    	    && (this.state.tanks[tank_keys[i]].run == this.state.tanks[tank_keys[0]].run) //run string names are all same
+		    tank_nums_only.push(this.state.tanks[tank_keys[i]].tank)
 	    }
+	    results_good = results_good && ([...new Set(tank_nums_only)].length == tank_nums_only.length) //all tank nums are unique
 	    if (results_good && (Object.keys(this.state.tanks).length != 0)) {
 		    var flag_button = <button onClick={(e) => this.handleToFlag(e)} className="flex flex-shrink place-self-center place-items-center bg-gray-600 m-2 mt-4 p-1 px-2 rounded-md 
-                        border border-gray-200 ">flag</button>
+                        border border-gray-200 focus:outline-none">flag</button>
 	    } else {
 		    var flag_button = <div></div>
 		    this.state.toFlag = false
 	    }
 
 	if (this.state.toFlag) {
+		var confirm_sample_num_button = <button onClick={(e) => this.handleCheck(e)} className="flex flex-shrink place-self-center place-items-center bg-gray-600 m-2 mt-4 p-1 px-2 rounded-md 
+                        border border-gray-200 focus:outline-none">check</button>
 		var results_header = <div className="flex w-full place-content-evenly"><div className="text-xl mr-6 ml-4">Time</div><div className="text-xl ">PCV</div><div className="text-xl ">Vol (ul)</div>
 			<div className="w-10"></div>
 			</div>
 	} else {
+		var confirm_sample_num_button = <div></div>
 		var results_header = <div className="flex w-full place-content-evenly"><div className="text-xl mr-6 ml-4">Time</div><div className="text-xl">PCV</div><div className="text-xl">Vol (ul)</div></div>
 	}
 
@@ -348,13 +412,20 @@ export default class Upload extends React.Component {
                         var p = this.state.tanks[tank_keys[i]].results.pcv[j]
                         var v = this.state.tanks[tank_keys[i]].results.volume[j]
 
+			if (this.state.tanks[tank_keys[i]].results.flagged[j]) {
+				var individual_flag_button = <button onClick={(e) => this.handleFlag(e, i, j)} className=" bg-red-200 border-2 border-red-800 focus:outline-none">flag</button>
+			} else {
+				var individual_flag_button = <button onClick={(e) => this.handleFlag(e, i, j)} className=" bg-green-200 border-2 border-green-800 focus:outline-none">flag</button>
+			}
+
                         results.push(
                             <div className="flex w-full place-content-evenly">
                                 <div className="flex ">{t}</div>
                                 <div className="flex mr-16 ml-6 ">{p}</div>
                                 <div className="flex mr-16 ml-6 ">{v}</div>
-			    	<button className=" bg-green-200 border-2 border-green-800">flag</button>
-				<input type="number" className="flex flex-initial w-10 bg-gray400 border border-gray-700 rounded-lg" />
+				{individual_flag_button}
+				<input type="number" value={this.state.tanks[tank_keys[i]].results.sample_num[j]} onChange={(e) => this.handleSampleNum(e, i, j)} 
+				className="flex flex-initial w-10 bg-gray-400 border border-gray-100 rounded-lg" />
                             </div>
                         )
                     }
@@ -401,6 +472,19 @@ export default class Upload extends React.Component {
 		    var copy_button = <div></div>
 	    }
 
+	    if (this.state.checked == 1) {
+	    	var exportButton = <ExportButton blocked={false} 
+		    data={[
+			    {name: 'cat', category: 'animal'},
+			    {name: 'hat', category: 'clothing'},
+		    ]} filename={'PE288_PCV'}/>
+	    } else {
+	    	var exportButton = <ExportButton blocked={true} 
+		    data={[
+			    {name: 'cat', category: 'animal'},
+			    {name: 'hat', category: 'clothing'},
+		    ]} filename={'PE288_PCV'}/>
+	    }
 
         return (
           <div className="grid grid-cols-1 w-screen h-screen bg-gray-400">
@@ -422,6 +506,7 @@ export default class Upload extends React.Component {
 		<div className="flex flex-row place-content-center">
                     <label className="flex flex-inital m-5 mt-8 place-self-center text-3xl font-semibold">Results</label>
 		    {flag_button}
+		    {confirm_sample_num_button}
 		</div>
                     {results_header}
                     <div className="flex flex-col flex-grow gap-y-3 ">{resultrows}</div>
@@ -434,10 +519,7 @@ export default class Upload extends React.Component {
                     <button onClick={(e) => this.setTankNumbers(e)} className="flex flex-shrink place-self-center bg-gray-600 m-3 p-6 rounded-t-md 
                         border-2 border-gray-200 font-medium active:bg-red-600 focus:outline-none">Auto</button>
                     {submitButton}
-		    <ExportButton data={[
-			    {name: 'cat', category: 'animal'},
-			    {name: 'hat', category: 'clothing'},
-		    ]} filename={'PE288_PCV'}/>
+		    {exportButton}
                     <Link href="/"><div className="flex flex-shrink place-self-center bg-gray-600 m-3 p-6 rounded-t-md cursor-pointer
                         border-2 border-gray-200 font-medium active:bg-red-600 focus:outline-none">Back</div></Link>
                 </div>
