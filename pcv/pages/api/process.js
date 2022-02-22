@@ -33,6 +33,7 @@ const handler = async (req, res) => {
     })
     python.on('close', async (code) => {
       console.log(`python visualization script closing with status code: ${code}`)
+	// HERE CHECK IF VALUE IS IN PROPER RANGE. IF NOT RETURN 500
       if (code != 0) {
         console.error("Internal python visualization script script error")
         res.status(500).json({message: "Internal python visualization script script error"})
