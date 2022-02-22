@@ -95,10 +95,61 @@ export default class Upload extends React.Component {
 
     handleCheck(e) {
 	    e.preventDefault()
-	    var all_runs_same = true
-	    this.setState({
-		    checked: 1, //0=undefined, 1=good, 2=bad
-	    })
+	    var tank_keys = Object.keys(this.state.tanks)
+	    var all_nums = []
+	    
+	    for (let i=0; i<tank_keys.length; i++) {
+		    var nums = []
+		    for (let j=0; j<this.state.tanks[tank_keys[i]].results.sample_num.length; j++) {
+			    if (!(this.state.tanks[tank_keys[i]].results.flagged[j])) {
+				    nums.push(Number(this.state.tanks[tank_keys[i]].results.sample_num[j]))
+			    }
+		    }
+		    all_nums.push(nums)
+	    }
+
+	    var all_equal = true
+	    for (let k=0; k<all_nums.length; k++) {
+		    all_equal = all_equal && (JSON.stringify(all_nums[k]) == JSON.stringify(all_nums[0]))
+	    }
+
+	    var export_data = []
+	    for (let i=0; i<tank_keys.length; i++) {
+		    var export_data_single = []
+		    var tank_k = tank_keys[i]
+		    var result = this.state.tanks[tank_k].results
+		    for (let j=0; j<result.pcv.length; j++) {
+			    if (!result.flagged[j]) {
+				var tt;
+                            	tt = new Date(this.state.tanks[tank_keys[i]].results.time[j])
+                            	//tt = new Date(tt.toUTCString()).toLocaleString()
+				export_data_single.push({"Experiment": this.state.tanks[tank_k].run, "Tank Name": `Cub ${this.state.tanks[tank_k].tank}`, 
+					"Sample Number": `${result.sample_num[j]}`, "Measurement Timestamp": tt, "Measurement Type": "PCV", 
+					"Dilution": result.volume[j], "Measurement Value": Number(result.pcv[j])/Number(result.volume[j])*1000, "Units": "uL/mL", "Equipment": "Manual"})
+			    }
+		    }
+		    export_data.push(export_data_single)
+
+	    }
+	    var export_ready = []
+	    for (let j=0; j<export_data[0].length; j++) {
+		    for (let i=0; i<export_data.length; i++) {
+			    export_ready.push(export_data[i][j])
+		    }
+	    }
+	    
+	    if (all_equal) {
+	    	this.setState({
+	    	        checked: 1, //0=undefined, 1=good, 2=bad
+			export_ready: export_ready
+	    	})
+	    } else {
+	    	this.setState({
+	    	        checked: 2, //0=undefined, 1=good, 2=bad
+	    	})
+	    }
+
+
     }
 
     handleSampleNum(e, tank_index, result_index) {
@@ -109,6 +160,7 @@ export default class Upload extends React.Component {
 	    new_list[result_index] = new_num
 	    this.setState(prevState => ({
 		    ...prevState,
+		    checked: 0,
 		    tanks: {
 			    ...prevState.tanks,
 			    [tank_index]: {
@@ -129,6 +181,7 @@ export default class Upload extends React.Component {
 	    new_list[result_index] = !current_status
 	    this.setState(prevState => ({
 		    ...prevState,
+		    checked: 0,
 		    tanks: {
 			    ...prevState.tanks,
 			    [tank_index]: {
@@ -145,7 +198,8 @@ export default class Upload extends React.Component {
     handleToFlag(e) {
 	    e.preventDefault()
 	    this.setState({
-		    toFlag: !(this.state.toFlag)
+		    toFlag: !(this.state.toFlag),
+		    checked: 0,
 	    })
     }
 
@@ -155,6 +209,7 @@ export default class Upload extends React.Component {
         for (let i=0; i<tank_keys.length; i++) {
             this.setState(prevState => ({
                 ...prevState,
+		checked: 0,
                 tanks: {
                     ...prevState.tanks,
                     [tank_keys[i]]: {
@@ -172,6 +227,7 @@ export default class Upload extends React.Component {
         for (let i=0; i<tank_keys.length; i++) {
             this.setState(prevState => ({
                 ...prevState,
+		checked: 0,
                 tanks: {
                     ...prevState.tanks,
                     [tank_keys[i]]: {
@@ -187,6 +243,7 @@ export default class Upload extends React.Component {
         event.preventDefault()
         this.setState(prevState => ({
             ...prevState,
+	    checked: 0,
             tanks: {
                 ...prevState.tanks,
                 [tanknumber]: {
@@ -201,6 +258,7 @@ export default class Upload extends React.Component {
         event.preventDefault()
         this.setState(prevState => ({
             ...prevState,
+	    checked: 0,
             tanks: {
                 ...prevState.tanks,
                 [tanknumber]: {
@@ -216,6 +274,7 @@ export default class Upload extends React.Component {
         var current_tank_amount = Object.keys(this.state.tanks).length
         this.setState(prevState => ({
             ...prevState,
+	    checked: 0,
             tanks: {
                 ...prevState.tanks,
                 [current_tank_amount]: {
@@ -261,6 +320,7 @@ export default class Upload extends React.Component {
 
             this.setState(prevState => ({
                 ...prevState,
+		checked: 0,
                 tanks: {
                     ...prevState.tanks,
                     [tank_keys[i]]: { 
@@ -385,11 +445,19 @@ export default class Upload extends React.Component {
 	    }
 
 	if (this.state.toFlag) {
-		var confirm_sample_num_button = <button onClick={(e) => this.handleCheck(e)} className="flex flex-shrink place-self-center place-items-center bg-gray-600 m-2 mt-4 p-1 px-2 rounded-md 
-                        border border-gray-200 focus:outline-none">check</button>
 		var results_header = <div className="flex w-full place-content-evenly"><div className="text-xl mr-6 ml-4">Time</div><div className="text-xl ">PCV</div><div className="text-xl ">Vol (ul)</div>
 			<div className="w-10"></div>
 			</div>
+		if (this.state.checked == 0) {
+			var confirm_sample_num_button = <button onClick={(e) => this.handleCheck(e)} className="flex flex-shrink place-self-center place-items-center bg-gray-600 m-2 mt-4 p-1 px-2 rounded-md 
+                        border border-gray-200 focus:outline-none">check</button>
+		} else if (this.state.checked == 1) {
+			var confirm_sample_num_button = <button onClick={(e) => this.handleCheck(e)} className="flex flex-shrink place-self-center place-items-center bg-green-600 m-2 mt-4 p-1 px-2 rounded-md 
+                        border border-gray-200 focus:outline-none">check</button>
+		} else {
+			var confirm_sample_num_button = <button onClick={(e) => this.handleCheck(e)} className="flex flex-shrink place-self-center place-items-center bg-red-600 m-2 mt-4 p-1 px-2 rounded-md 
+                        border border-gray-200 focus:outline-none">check</button>
+		}
 	} else {
 		var confirm_sample_num_button = <div></div>
 		var results_header = <div className="flex w-full place-content-evenly"><div className="text-xl mr-6 ml-4">Time</div><div className="text-xl">PCV</div><div className="text-xl">Vol (ul)</div></div>
@@ -474,10 +542,7 @@ export default class Upload extends React.Component {
 
 	    if (this.state.checked == 1) {
 	    	var exportButton = <ExportButton blocked={false} 
-		    data={[
-			    {name: 'cat', category: 'animal'},
-			    {name: 'hat', category: 'clothing'},
-		    ]} filename={'PE288_PCV'}/>
+		    data={this.state.export_ready} filename={'PE288_PCV'}/>
 	    } else {
 	    	var exportButton = <ExportButton blocked={true} 
 		    data={[
