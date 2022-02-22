@@ -542,13 +542,13 @@ export default class Upload extends React.Component {
 
 	    if (this.state.checked == 1) {
 	    	var exportButton = <ExportButton blocked={false} 
-		    data={this.state.export_ready} filename={'PE288_PCV'}/>
+		    data={this.state.export_ready} filename={`${this.state.tanks[Object.keys(this.state.tanks)[0]].run}_PCV`}/>
 	    } else {
 	    	var exportButton = <ExportButton blocked={true} 
 		    data={[
 			    {name: 'cat', category: 'animal'},
 			    {name: 'hat', category: 'clothing'},
-		    ]} filename={'PE288_PCV'}/>
+		    ]} filename={'ERROR_BAD_EXPORT'}/>
 	    }
 
         return (
