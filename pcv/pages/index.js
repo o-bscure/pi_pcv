@@ -75,34 +75,34 @@ export default class Home extends React.Component {
 	var bad_input = /(^\s*$)|(^\s+)/gi
 
         if (this.state.isSet == undefined ) {
-            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-64 h-12 border-2 font-medium focus:outline-none "
-            buttonType += "border-gray-100 "
+            var buttonType = "flex place-self-center place-content-center place-items-center bg-white rounded-md w-64 h-12 border-2 font-medium focus:outline-none " // needs trailing space
+            buttonType += "border-gray-200 " //needs trailing space
         } else if (this.state.isSet == true) {
-            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-64 h-12 border-2 font-medium focus:outline-none "
-            buttonType += "border-green-600 "
+            var buttonType = "flex place-self-center place-content-center place-items-center bg-white rounded-md w-64 h-12 border-2 font-medium focus:outline-none " //needs trailing space
+            buttonType += "border-green-600 " //needs trailing space
         } else {
-            var buttonType = "flex place-self-center place-content-center place-items-center bg-gray-600 rounded-md w-64 h-12 border-2 font-medium focus:outline-none "
-            buttonType += "border-red-400 "
+            var buttonType = "flex place-self-center place-content-center place-items-center bg-white rounded-md w-64 h-12 border-2 font-medium focus:outline-none " //needs trailing space
+            buttonType += "border-red-400 " //needs trailing space
         }
         if (!this.state.run || bad_input.test(this.state.run) || (this.state.tank == undefined) || (this.state.tank < 1) || (this.state.volume == undefined) || (this.state.volume < 1)) {
-            buttonType += "cursor-not-allowed "
+            buttonType += "cursor-not-allowed " //needs trailing space
             var button_remote = <button disabled onClick={(e) => this.handleSubmit(e)} className={buttonType}>Set Remote</button>
         } else {
-            buttonType += "hover:border-gray-800 "
+            buttonType += "hover:border-gray-800 " //needs trailing space
             var button_remote = <button onClick={(e) => this.handleSubmit(e)} className={buttonType}>Set Remote</button>
         }
         return (
-            <div className="grid grid-rows-2 h-screen w-screen bg-gray-400 place-items-center">
+            <div className="grid grid-rows-2 h-screen w-screen bg-white place-items-center">
                 <h1 className="font-sans font-semibold text-5xl">PCV VIEWER</h1>
                 <div className="grid grid-cols-4 grid-rows-2 w-full h-full place-items-center">
                     <span/>
                     <Link href="/upload">
-                        <button className="rounded-lg border-4 border-indigo-700 p-5 w-40 text-3xl bg-gray-800 text-gray-300 
-                        focus:outline-none hover:border-green-500"><p>Upload</p></button>
+                        <button className="rounded-lg border-2 border-white p-5 w-40 text-3xl bg-black text-white 
+                        focus:outline-none hover:border-black"><p>Upload</p></button>
                     </Link>
                     <Link href="/view">
-                        <button className="rounded-lg border-4 border-red-700 p-5 w-40 text-3xl bg-gray-800 text-gray-300
-                        focus:outline-none hover:border-yellow-500 hover:bg-gray-800"><p>View</p></button>
+                        <button className="rounded-lg border-2 border-white p-5 w-40 text-3xl bg-black text-white 
+                        focus:outline-none hover:border-black "><p>View</p></button>
                     </Link>
                     <span/>
                     <span/>
@@ -111,14 +111,14 @@ export default class Home extends React.Component {
                             <div className="flex w-full place-content-center">
                                 <label className="flex flex-inital text-xl mr-1 place-items-center font-semibold">Run</label>
                                 <input type="text" id="run" value={this.state.run} onChange={(e) => this.handleRunSelect(e)} 
-                                    className="flex flex-initial place-self-center w-16 h-7 bg-gray-400 border-2 border-gray-100 rounded-md focus:outline-none"/>
+                                    className="flex flex-initial place-self-center w-16 h-7 bg-white border border-black rounded-md focus:outline-none"/>
 
                                 <label className="flex flex-initial text-xl ml-2 mr-1 place-items-center font-semibold">Tank</label>
                                 <input type="number" value={this.state.tank} onChange={(e) => this.handleTankSelect(e)} 
-                                    className={"flex flex-initial place-self-center w-10 h-7 bg-gray-400 border-2 border-gray-100 rounded-md focus:outline-none"}/>
+                                    className={"flex flex-initial place-self-center w-10 h-7 bg-white border border-black rounded-md focus:outline-none"}/>
                                 <label className="flex flex-initial text-xl ml-2 mr-1 place-items-center font-semibold">Volume</label>
                                 <input type="number" value={this.state.volume} onChange={(e) => this.handleVolumeSelect(e)} 
-                                    className={"flex flex-initial place-self-center w-16 h-7 bg-gray-400 border-2 border-gray-100 rounded-md focus:outline-none"}/>
+                                    className={"flex flex-initial place-self-center w-16 h-7 bg-white border border-black rounded-md focus:outline-none"}/>
                                 <p className="place-self-center">ul</p>
                             </div>
 

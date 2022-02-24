@@ -387,22 +387,25 @@ export default class Upload extends React.Component {
         }
         var tankrows = []
         for (let i=0; i<Object.keys(this.state.tanks).length; i++) {
-            var box_type_run = "flex flex-initial place-self-center place-items-center w-16 h-7 bg-gray-400 border-2 rounded-md focus:outline-none ";
-            var box_type_tank = "flex flex-initial place-self-center w-10 h-7 bg-gray-400 border-2 rounded-md focus:outline-none ";
+            var box_type_run = "flex flex-initial place-self-center place-items-center px-1 w-16 h-7 bg-white focus:outline-none "; //requires trailing space
+            var box_type_tank = "flex flex-initial place-self-center w-10 h-7 bg-white focus:outline-none "; //requires trailing space
             if ((typeof this.state.tanks[i].run) == "undefined" || this.state.tanks[i].run == "" || this.state.tanks[i].run == " ") {
-                box_type_run = box_type_run.concat("border-red-600")
+                box_type_run = box_type_run.concat("border-2 rounded-md border-red-600")
+		box_type_tank = box_type_tank.concat("border rounded-md border-black")
                 badSubmit = true
-            } else if ((typeof this.state.tanks[i].tank) == "undefined" || Number(this.state.tanks[i].tank) == 0) {
-                box_type_tank = box_type_tank.concat("border-red-600")
+            } else if ((typeof this.state.tanks[i].tank) == "undefined" || Number(this.state.tanks[i].tank) <= 0) {
+                box_type_tank = box_type_tank.concat("border-2 rounded-md border-red-600")
+                box_type_run = box_type_run.concat("border rounded-md border-black")
                 badSubmit = true
             } else {
-                box_type_run = box_type_run.concat("border-gray-100")
-                box_type_tank = box_type_tank.concat("border-gray-100")
+		console.log(box_type_tank)
+                box_type_run = box_type_run.concat("border rounded-md border-black ")
+                box_type_tank = box_type_tank.concat("border rounded-md border-black ")
             }
             tankrows.push(
                 <div key={i} className="flex flex-rows-1 place-content-evenly w-full"> 
                     <div className="flex flex-col-1 flex-wrap place-content-center">
-                        <label className="flex flex-initial place-items-center place-content-center p-1 w-full">Run</label>
+                        <label className="flex flex-initial place-items-center place-content-center text-lg p-1 w-full">Run</label>
                         <input type="text" value={this.state.tanks[tank_keys[i]].run} onChange={(e) => this.handleRunSelect(e, i)} className={box_type_run}/>
                         <div className="flex p-1 place-items-center place-content-center w-full ">
                             <button onClick={(e) => this.setRunGlobal(e, this.state.tanks[tank_keys[i]].run)} className="bg-gray-600 rounded-sm pl-2 pr-2 text-l 
@@ -418,11 +421,11 @@ export default class Upload extends React.Component {
         }
 
         if (badSubmit) {
-            var submitButton=<button onClick={(e) => this.handleSubmit(e)} disabled className="flex flex-initial place-self-center bg-gray-600 m-3 p-6 rounded-t-md 
-                        font-medium border-4 border-red-500 cursor-not-allowed focus:outline-none hover:ring hover:ring-gray-300 active:bg-indigo-300">Submit</button>
+            var submitButton=<button onClick={(e) => this.handleSubmit(e)} disabled className="flex flex-initial place-self-center bg-white m-3 p-6 rounded-t-md 
+                        font-medium border-2 border-red-500 cursor-not-allowed focus:outline-none ">Submit</button>
         } else {
-            var submitButton=<button onClick={(e) => this.handleSubmit(e)} className="flex flex-initial place-self-center bg-gray-600 m-3 p-6 rounded-t-md 
-                        font-medium border-4 border-green-500 focus:outline-none hover:ring hover:ring-gray-300 active:bg-indigo-300">Submit</button>
+            var submitButton=<button onClick={(e) => this.handleSubmit(e)} className="flex flex-initial place-self-center bg-white m-3 p-6 rounded-t-md 
+                        font-medium border-2 border-green-500 focus:outline-none ">Submit</button>
         }
 
 	    var results_good = true
@@ -437,8 +440,8 @@ export default class Upload extends React.Component {
 	    }
 	    results_good = results_good && ([...new Set(tank_nums_only)].length == tank_nums_only.length) //all tank nums are unique
 	    if (results_good && (Object.keys(this.state.tanks).length != 0)) {
-		    var flag_button = <button onClick={(e) => this.handleToFlag(e)} className="flex flex-shrink place-self-center place-items-center bg-gray-600 m-2 mt-4 p-1 px-2 rounded-md 
-                        border border-gray-200 focus:outline-none">flag</button>
+		    var flag_button = <button onClick={(e) => this.handleToFlag(e)} className="flex flex-shrink place-self-center place-items-center bg-white m-2 mt-4 p-1 px-2 rounded-md 
+                        border border-black hover:bg-black hover:text-white focus:outline-none">flag</button>
 	    } else {
 		    var flag_button = <div></div>
 		    this.state.toFlag = false
@@ -449,14 +452,14 @@ export default class Upload extends React.Component {
 			<div className="w-10"></div>
 			</div>
 		if (this.state.checked == 0) {
-			var confirm_sample_num_button = <button onClick={(e) => this.handleCheck(e)} className="flex flex-shrink place-self-center place-items-center bg-gray-600 m-2 mt-4 p-1 px-2 rounded-md 
-                        border border-gray-200 focus:outline-none">check</button>
+			var confirm_sample_num_button = <button onClick={(e) => this.handleCheck(e)} className="flex flex-shrink place-self-center place-items-center bg-white m-2 mt-4 p-1 px-2 rounded-md 
+                        border border-black hover:bg-black hover:text-white focus:outline-none">check</button>
 		} else if (this.state.checked == 1) {
-			var confirm_sample_num_button = <button onClick={(e) => this.handleCheck(e)} className="flex flex-shrink place-self-center place-items-center bg-green-600 m-2 mt-4 p-1 px-2 rounded-md 
-                        border border-gray-200 focus:outline-none">check</button>
+			var confirm_sample_num_button = <button onClick={(e) => this.handleCheck(e)} className="flex flex-shrink place-self-center place-items-center bg-green-400 m-2 mt-4 p-1 px-2 rounded-md 
+                        border border-black focus:outline-none">check</button>
 		} else {
-			var confirm_sample_num_button = <button onClick={(e) => this.handleCheck(e)} className="flex flex-shrink place-self-center place-items-center bg-red-600 m-2 mt-4 p-1 px-2 rounded-md 
-                        border border-gray-200 focus:outline-none">check</button>
+			var confirm_sample_num_button = <button onClick={(e) => this.handleCheck(e)} className="flex flex-shrink place-self-center place-items-center bg-red-400 m-2 mt-4 p-1 px-2 rounded-md 
+                        border border-black focus:outline-none">check</button>
 		}
 	} else {
 		var confirm_sample_num_button = <div></div>
@@ -493,7 +496,7 @@ export default class Upload extends React.Component {
                                 <div className="flex mr-16 ml-6 ">{v}</div>
 				{individual_flag_button}
 				<input type="number" value={this.state.tanks[tank_keys[i]].results.sample_num[j]} onChange={(e) => this.handleSampleNum(e, i, j)} 
-				className="flex flex-initial w-10 bg-gray-400 border border-gray-100 rounded-lg" />
+				className="flex flex-initial w-10 bg-white px-1 border border-black rounded-lg" />
                             </div>
                         )
                     }
@@ -552,7 +555,7 @@ export default class Upload extends React.Component {
 	    }
 
         return (
-          <div className="grid grid-cols-1 w-screen h-screen bg-gray-400">
+          <div className="grid grid-cols-1 w-full h-full min-w-screen min-h-screen bg-white">
             <div className="flex flex-grow">
             <form className="grid grid-cols-2 w-full h-full">
                 <div className="flex flex-col flex-nowrap gap-y-1">
@@ -562,7 +565,7 @@ export default class Upload extends React.Component {
                     <div className="flex flex-row place-content-center">
                         <label className="flex flex-initial text-xl pr-4">Amount</label>
                         <input type="number" id="tank_amount" value={Object.keys(this.state.tanks).length} onChange={(e) => this.handleAmountSelect(e)} 
-                            className="flex flex-initial w-20 bg-gray-400 border-2 border-gray-700 rounded-lg focus:outline-none"/>
+                            className="flex flex-initial px-1 w-16 bg-white border-2 border-gray-600 rounded-lg focus:outline-none"/>
                     </div>
                     <div className="flex flex-col flex-grow gap-y-3 ">{tankrows}</div>
                 </div>
@@ -581,12 +584,12 @@ export default class Upload extends React.Component {
 
             <div className="flex flex-shrink flex-col-1 place-content-center self-end h-20">
                 <div className="flex flex-row-1 place-content-around w-full">
-                    <button onClick={(e) => this.setTankNumbers(e)} className="flex flex-shrink place-self-center bg-gray-600 m-3 p-6 rounded-t-md 
-                        border-2 border-gray-200 font-medium active:bg-red-600 focus:outline-none">Auto</button>
+                    <button onClick={(e) => this.setTankNumbers(e)} className="flex flex-shrink place-self-center bg-white m-3 p-6 rounded-t-md 
+                        border-2 border-black font-medium hover:bg-black hover:text-white focus:outline-none">Auto</button>
                     {submitButton}
 		    {exportButton}
-                    <Link href="/"><div className="flex flex-shrink place-self-center bg-gray-600 m-3 p-6 rounded-t-md cursor-pointer
-                        border-2 border-gray-200 font-medium active:bg-red-600 focus:outline-none">Back</div></Link>
+                    <Link href="/"><div className="flex flex-shrink place-self-center bg-white m-3 p-6 rounded-t-md cursor-pointer
+                        border-2 border-black font-medium hover:bg-black hover:text-white focus:outline-none">Back</div></Link>
                 </div>
             </div>
           </div>
