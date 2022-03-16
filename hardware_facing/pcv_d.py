@@ -41,7 +41,7 @@ def callback_func(channel):
         path = "/home/pi/pi_pcv/hardware_facing/pics/test{}.jpg".format(buffer_num)
         buffer_num += 1
         arducam_vcm.vcm_init()
-        focusing(int(512))
+        focusing(int(1999)) #prev: 512
         #focus time commented out. may be unnecssary unless focusing() is async
         #time.sleep(1)
         camera.capture(path)

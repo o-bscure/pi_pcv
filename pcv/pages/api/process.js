@@ -29,7 +29,9 @@ const handler = async (req, res) => {
       console.log(`pcv read as: ${pcv_reading}`)
     })
     python.stderr.on('data', (data) => {
-      console.error(`stderr: ${data}`)
+      console.log(`script error: ${data}`)
+      //console.error(`stderr: ${data}`)
+      //res.status(500).json({message: "viz script error"})
     })
     python.on('close', async (code) => {
       console.log(`python visualization script closing with status code: ${code}`)
