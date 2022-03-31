@@ -104,9 +104,15 @@ def thresh_n_prep(tube_gray, tube_image, threshold):
     #show_images_2(tube_threshold, tube_open)
     return contours, center_x, tube_clone2, max_x, tube_clone
 def prep_image(tube_image):
+    max_x = len(tube_image[0,:])
+    mid_x = max_x//2
+    max_y = len(tube_image[:,0])
+    top_y = int(max_y*0.10)
+    bot_y = int(max_y-(max_y*0.15))
     #tube_image = tube_image[150:460, 540:740] #crop image to only get desired tube portion
     #tube_image = tube_image[140:755, 920:1030] #crop image to only get desired tube portion
-    tube_image = tube_image[100:800, 870:1050] #crop image to only get desired tube portion
+    #tube_image = tube_image[100:800, 870:1050] #crop image to only get desired tube portion
+    tube_image = tube_image[top_y:bot_y, mid_x-100:mid_x+100] #crop image to only get desired tube portion
     tube_gray = cv2.cvtColor(tube_image, cv2.COLOR_BGR2GRAY) #take grayscale of image
     #smooth image using median blur
     tube_gray = cv2.medianBlur(tube_gray, 5)

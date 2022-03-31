@@ -5,7 +5,7 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(22, GPIO.OUT, initial=GPIO.LOW)
 
-while True:
+for _ in range(8):
     '''
     gpio.output(pinnum, gpio.high)
     sleep(1)
@@ -13,6 +13,6 @@ while True:
     sleep(1)
     '''
     GPIO.output(22, GPIO.HIGH)
-    sleep(0.05)
+    sleep(0.1)
     GPIO.output(22, GPIO.LOW)
-    sleep(0.05)
+    sleep(0.1)

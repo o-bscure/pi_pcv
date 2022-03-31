@@ -29,16 +29,15 @@ const handler = async (req, res) => {
       console.log(`pcv read as: ${pcv_reading}`)
     })
     python.stderr.on('data', (data) => {
+      pcv_reading = Number(9.999)
       console.log(`script error: ${data}`)
       //console.error(`stderr: ${data}`)
-      //res.status(500).json({message: "viz script error"})
     })
     python.on('close', async (code) => {
       console.log(`python visualization script closing with status code: ${code}`)
-	// HERE CHECK IF VALUE IS IN PROPER RANGE. IF NOT RETURN 500
-      if (code != 0) {
+      if ((code != 0) || pcv_reading > 5 || pcv_reading < 0.3 || pcv_reading == 9.999) {
         console.error("Internal python visualization script script error")
-        res.status(500).json({message: "Internal python visualization script script error"})
+        res.status(500).json({message: "Internal python visualization script error"})
       } else {
         const results = await query(`
           INSERT INTO entries (run, tank, volume, pcv_value, path)

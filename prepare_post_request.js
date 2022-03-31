@@ -24,6 +24,7 @@ async function prepare_post_request(img_path_old, file_type) {
         fs.writeFileSync('/home/pi/pi_pcv/remote.json', new_remote)
         var j = 0;
 
+
         const imgHash = crypto.createHash('md5').update(img_buf).digest('hex')
         const img_path = path.join(__dirname, `/pcv/public/upload_${imgHash}.${file_type}`)
         const data = {
@@ -32,6 +33,10 @@ async function prepare_post_request(img_path_old, file_type) {
             tank: tank,
             volume: volume
         }
+
+	var now = new Date().toISOString()
+	fs.appendFileSync('/home/pi/pi_pcv/logs/picture.log',`${now}, run: ${run}, tank: ${tank}, vol: ${volume}, image: ${img_path} \n`)
+
         fs.writeFile(img_path, img_buf, (err) => {
             if (err) throw err
             console.log('file saved, now processing')
@@ -43,6 +48,7 @@ async function prepare_post_request(img_path_old, file_type) {
                 data: data,
             })
             .then((res) => {
+		//stop_handle_red()
                 console.log(res.status, res.statusText, res.data)
 		        blink_p.kill()
 		        stop_handle_green()
@@ -52,7 +58,7 @@ async function prepare_post_request(img_path_old, file_type) {
                 stop_handle_green()
                 blink_handle_red()
                 console.log(`error processing file upload. message: ${e}`)
-                console.error(e)
+		//console.error(e)
             })
         })
 
