@@ -5,6 +5,7 @@ import axios from 'axios'
 import { ClipboardCopy } from '../components/clipboard_copy.js'
 import { ExportButton } from '../components/exportButton.js'
 import { Modal } from '../components/Modal.js'
+import { Prompt } from '../components/Prompt.js'
 
 //TODO: results 'recent' only default, with reuturn 'all' queries option
 //filter run to not have only whitespace
@@ -33,6 +34,9 @@ export default class Upload extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+	    _prompt: false,
+	    _prompt_str: "undefined",
+	    _prompt_func: undefined,
 	    isModal: false,
 	    imgModal: undefined,
 	    isCopied: false,
@@ -61,6 +65,8 @@ export default class Upload extends React.Component {
         this.setRunGlobal = this.setRunGlobal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 	this.selectModal = this.selectModal.bind(this);
+	this.givePrompt = this.givePrompt.bind(this);
+	this.deleteEntry = this.deleteEntry.bind(this);
     }
 
 	/*
@@ -96,6 +102,33 @@ export default class Upload extends React.Component {
 	    }
     }
     */
+
+    givePrompt(e, f, str) {
+	e.preventDefault()
+	this.setState({
+		_prompt: true,
+		_prompt_str: str,
+		_prompt_func: f
+	})
+    }
+
+    deleteEntry(e, run, tank, time) {
+	e.preventDefault()
+	axios({
+		method: 'post',
+		url: `/api/delete_request`,
+		data: {
+			run: run,
+			tank: tank,
+			time: time,
+		},
+		timeout: 5000,
+	})
+	.then((r) => {
+		this.handleSubmit(e)
+	})
+	
+    }
 
     selectModal(e, run, tank, time) {
 	    e.preventDefault()
@@ -536,19 +569,21 @@ export default class Upload extends React.Component {
                         if (t != ["loading..."]) {
                             t = new Date(this.state.tanks[tank_keys[i]].results.time[j])
                             t = new Date(t.toUTCString()).toLocaleString()
-			    var modalButton = <button key={j} onClick={(e) => this.selectModal(e, this.state.tanks[tank_keys[i]].run, this.state.tanks[tank_keys[i]].tank, new Date(new Date(this.state.tanks[tank_keys[i]].results.time[j]).toUTCString()).toLocaleString())} className="border border-black p-0.5 px-1 rounded-md bg-black text-white" >view</button>
-                        }
+			    var modalButton = <button key={i*100+j} onClick={(e) => this.selectModal(e, this.state.tanks[tank_keys[i]].run, this.state.tanks[tank_keys[i]].tank, new Date(new Date(this.state.tanks[tank_keys[i]].results.time[j]).toUTCString()).toLocaleString())} className="border border-black p-0.5 px-1 rounded-md bg-black text-white" >view</button>
+			    var deleteButton = <button key={i*1000+j} onClick={(e) => this.givePrompt(e, (ee) => this.deleteEntry(ee, this.state.tanks[tank_keys[i]].run, this.state.tanks[tank_keys[i]].tank, new Date(new Date(this.state.tanks[tank_keys[i]].results.time[j]).toUTCString()).toLocaleString()), `DELETE "${this.state.tanks[tank_keys[i]].run}" tank ${this.state.tanks[tank_keys[i]].tank} entry ${j+1}?`)} className="border border-black p-0.5 px-1 bg-gray-400 text-black focus:outline-none">del</button>
+                        
                         var p = this.state.tanks[tank_keys[i]].results.pcv[j]
                         var v = this.state.tanks[tank_keys[i]].results.volume[j]
-
-                        results.push(
+			results.push(
                             <div key={j} className="flex w-full place-content-evenly">
 				{modalButton}
                                 <div className="flex ">{t}</div>
                                 <div className="flex mr-16 ml-6 ">{p}</div>
                                 <div className="flex mr-16 ml-6 ">{v}</div>
+				{deleteButton}
                             </div>
                         )
+			}
 		}
                 resultrows.push(<div key={i} className="flex flex-col flex-wrap w-full place-self-center p-2">{results}</div>)
 		}
@@ -587,6 +622,8 @@ export default class Upload extends React.Component {
 
         return (
           <div className="w-full h-full min-w-screen min-h-screen bg-white">
+	  <div id="prompt-root"></div>
+	  <Prompt onClose={() => this.setState({_prompt: false})} show={this.state._prompt} func={this.state._prompt_func} str={this.state._prompt_str} />
 	  <div id="modal-root"></div>
 	  <Modal onClose={() => this.setState({isModal: false})} show={this.state.isModal}> <img src={`data:image/png;base64,${this.state.imgModal}`}/> </Modal>
           <div className="grid grid-cols-1 w-full h-full min-w-screen min-h-screen bg-white">

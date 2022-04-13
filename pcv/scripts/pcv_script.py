@@ -35,7 +35,7 @@ def rescale(max_x, tube_clone2, cellmass_height):
     name = str(sys.argv[1]).split(".")
     cv2.imwrite(name[0] + "_analyzed." + name[1], tube_clone2)
 
-    print(scaled_PCV-0.33)
+    print(scaled_PCV-0.3)
 def draw_final(dy_avg, max_x, tube_clone2):
     #draw mid line
     start_point_mid = (0, dy_avg)

@@ -65,7 +65,7 @@ def callback_func(channel):
 
     return
 
-GPIO.add_event_detect(8, GPIO.RISING, callback=callback_func, bouncetime=700)
+GPIO.add_event_detect(8, GPIO.RISING, callback=callback_func, bouncetime=1000)
 
 while True:
     if len(queue) == 0:

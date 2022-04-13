@@ -15,11 +15,13 @@ export function Modal({ show, onClose, children }) {
 
 	const modalContent = show ? (
 		<div className="flex absolute w-full h-full justify-center items-center">
-		<div className="flex bg-blue-100 w-1/2 h-1/2 p-10 rounded-md items-center justify-center">
+		<div className="flex bg-blue-100 w-1/2 h-1/2 p-10 rounded-md ">
 			<a href="#" onClick={handleCloseClick} className="flex justify-items-end text-3xl">
-			x
+				x
 			</a>
-			{children}
+			<div className="flex w-full h-full items-center justify-center">
+				{children}
+			</div>
 		</div>
 		</div>
 	) : null;
