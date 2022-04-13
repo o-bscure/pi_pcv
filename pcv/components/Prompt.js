@@ -21,7 +21,7 @@ export function Prompt({ show, onClose, func, str }) {
 
 	const modalContent = show ? (
 		<div className="flex absolute w-full h-full justify-center items-center">
-		<div className="flex bg-gray-400 h-1/2 p-10 rounded-md items-center justify-center border-2 border-black">
+		<div className="flex flex-col bg-gray-400 h-1/2 p-10 rounded-md items-center justify-center border-2 border-black">
 			<div className="grid grid-rows-2 w-full h-full ">
 				<div className="flex place-self-center text-2xl">{str}</div>
 				<div className="flex flex-row place-content-center gap-x-6">
@@ -29,6 +29,7 @@ export function Prompt({ show, onClose, func, str }) {
 					<button onClick={handleCloseClick} className="p-2 m-2 text-lg text-white bg-black" >NO</button>
 				</div>
 			</div>
+			<div className="flex items-center justify-center ">CAUTION: This is permanent</div>
 		</div>
 		</div>
 	) : null;
