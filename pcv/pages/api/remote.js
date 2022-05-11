@@ -1,5 +1,6 @@
 var { blink_handle_red, stop_handle_red} = require('../../../hardware_facing/wraper')
 var fs = require('fs')
+var remote = require('../../../remote.json')
 
 const handler = async (req, res) => {
     if (req.method != 'POST') {
@@ -14,9 +15,16 @@ const handler = async (req, res) => {
         const volume = body.volume
 
         let new_remote = JSON.stringify({
-            run: run,
-            tank: Number(tank),
-            volume: Number(volume)
+            "prev": {
+                run: remote.prev.run,
+                tank: Number(remote.prev.tank),
+                volume: Number(remote.prev.volume)
+            },
+            "next": {
+                run: run,
+                tank: Number(tank),
+                volume: Number(volume)
+            }
         })
         fs.writeFileSync('./../remote.json', new_remote)
         res.status(200).json("remote run/tank/volume set")

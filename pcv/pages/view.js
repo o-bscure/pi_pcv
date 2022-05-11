@@ -418,7 +418,7 @@ export default class Upload extends React.Component {
                     pcv_results.push(r.data.rows[i].pcv_value)
                     volume_results.push(r.data.rows[i].volume)
 		    flag_init.push(false)
-		    sample_num.push(i+2)
+		    sample_num.push(i+1)
                 }
 
                 this.setState(prevState => ({

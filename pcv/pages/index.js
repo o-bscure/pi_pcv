@@ -7,14 +7,16 @@ export default class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-	    flavor: "PE",
+            prev: props.remote.prev,
+            next: props.remote.next,
+	          flavor: "PE",
             run: "",
             tank: 1,
             volume: undefined,
             isSet: undefined 
         }
 
-	this.handleFlavorSelect = this.handleFlavorSelect.bind(this)
+	      this.handleFlavorSelect = this.handleFlavorSelect.bind(this)
         this.handleRunSelect = this.handleRunSelect.bind(this)
         this.handleTankSelect = this.handleTankSelect.bind(this)
         this.handleVolumeSelect = this.handleVolumeSelect.bind(this)
@@ -67,6 +69,11 @@ export default class Home extends React.Component {
         })
         .then((r) => { 
             this.setState((prevState) => ({
+                next: {
+                    run: `${this.state.flavor}${this.state.run}`,
+                    tank: this.state.tank,
+                    volume: this.state.volume
+                },
                 isSet: true
             }))
         })
@@ -103,46 +110,79 @@ export default class Home extends React.Component {
             var button_remote = <button onClick={(e) => this.handleSubmit(e)} className={buttonType}>Set Remote</button>
         }
         return (
-            <div className="grid grid-rows-2 h-screen w-screen bg-white place-items-center">
-                <h1 className="font-sans font-semibold text-5xl">PCV VIEWER</h1>
-                <div className="grid grid-cols-4 grid-rows-2 w-full h-full place-items-center">
-                    <span/>
-                    <Link href="/upload">
-                        <button className="rounded-lg border-2 border-white p-5 w-40 text-3xl bg-black text-white 
-                        focus:outline-none hover:border-black"><p>Upload</p></button>
-                    </Link>
+            <div className="grid grid-cols-2 h-screen w-screen bg-white place-items-center">
+                <div className="flex flex-col w-full h-full place-items-center justify-evenly">
+                    <h1 className="font-sans font-semibold text-5xl">PCV VIEWER</h1>
                     <Link href="/view">
                         <button className="rounded-lg border-2 border-white p-5 w-40 text-3xl bg-black text-white 
                         focus:outline-none hover:border-black "><p>View</p></button>
                     </Link>
-                    <span/>
-                    <span/>
-                    <div className="col-span-2 flex place-content-center flex-wrap w-full h-full">
-                        <div className="grid grid-cols-1 gap-y-2 w-full">
-                            <div className="flex w-full place-content-center">
-				<select name="flavor" onChange={(e) => this.handleFlavorSelect(e)}>
-					<option value="PE">PE</option>
-					<option value="SAM">SAM</option>
-					<option value="SV">SV</option>
-				</select>
-                                <input type="text" id="run" value={this.state.run} onChange={(e) => this.handleRunSelect(e)} 
-                                    className="flex flex-initial place-self-center w-16 h-7 bg-white border border-black rounded-md focus:outline-none"/>
-
-                                <label className="flex flex-initial text-xl ml-2 mr-1 place-items-center font-semibold">Tank</label>
-                                <input type="number" value={this.state.tank} onChange={(e) => this.handleTankSelect(e)} 
-                                    className={"flex flex-initial place-self-center w-10 h-7 bg-white border border-black rounded-md focus:outline-none"}/>
-                                <label className="flex flex-initial text-xl ml-2 mr-1 place-items-center font-semibold">Volume</label>
-                                <input type="number" value={this.state.volume} onChange={(e) => this.handleVolumeSelect(e)} 
-                                    className={"flex flex-initial place-self-center w-16 h-7 bg-white border border-black rounded-md focus:outline-none"}/>
-                                <p className="place-self-center">ul</p>
-                            </div>
-
-                            {button_remote}
-                        </div>
-                    </div>
-                    <span/>
                 </div>
+                <div className="flex flex-col w-full h-full place-items-center justify-evenly border-l-4">
+                    <div className="grid grid-cols-2 gap-2">
+                            <label className="flex flex-initial text-xl ml-2 mr-1 place-items-center font-semibold">Flavor</label>
+				                    <select name="flavor" onChange={(e) => this.handleFlavorSelect(e)}>
+				                    	<option value="PE">PE</option>
+				                    	<option value="SAM">SAM</option>
+				                    	<option value="SV">SV</option>
+				                    </select>
+                            <label className="flex flex-initial text-xl ml-2 mr-1 place-items-center font-semibold">Run No.</label>
+                            <input type="text" id="run" value={this.state.run} onChange={(e) => this.handleRunSelect(e)} 
+                                className="flex flex-initial w-16 h-7 bg-white border border-black rounded-md focus:outline-none"/>
+                            <label className="flex flex-initial text-xl ml-2 mr-1 place-items-center font-semibold">Tank</label>
+                            <input type="number" value={this.state.tank} onChange={(e) => this.handleTankSelect(e)} 
+                                className={"flex flex-initial w-10 h-7 bg-white border border-black rounded-md focus:outline-none"}/>
+                            <label className="flex flex-initial text-xl ml-2 mr-1 place-items-center font-semibold">Volume</label>
+                        <div className="flex flex-row">
+                            <input type="number" value={this.state.volume} onChange={(e) => this.handleVolumeSelect(e)} 
+                                className={"flex flex-initial place-self-center w-16 h-7 bg-white border border-black rounded-md focus:outline-none"}/>
+                            <p className="place-self-center">ul</p>
+                        </div>
+                        <div className="col-span-2 flex flex-col place-items-center">{button_remote}</div>
+                    </div>
+
+
+                    <div className="flex flex-col place-items-center">
+                        <div className="flex flex-row gap-2 place-items-center"><span className="text-4xl font-semibold">Next: </span><span className="text-4xl">{this.state.next.run} Tank {this.state.next.tank}</span></div>
+                        <div className="flex flex-row gap-2 place-items-center"><span className="text-2xl font-semibold">Last: </span><span className="text-2xl">{this.state.prev.run} Tank {this.state.prev.tank}</span></div>
+                    </div>
+                </div> 
             </div>
         )
     }
 }
+
+
+export async function getServerSideProps() {
+    var remote = require('../../remote.json')
+    return { props: { remote } }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

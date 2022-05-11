@@ -7,19 +7,26 @@ var { blink_handle_green, stop_handle_green, blink_handle_red, stop_handle_red }
 
 async function prepare_post_request(img_path_old, file_type) {
     //console.log(config)
-    if (remote.run && remote.tank && remote.volume) {
+    if (remote.next.run && remote.next.tank && remote.next.volume && remote.prev.run && remote.prev.tank && remote.prev.volume) {
 	const blink_p = await blink_handle_green()
         const img_buf = fs.readFileSync(img_path_old)
         fs.unlinkSync(img_path_old)
 
-        const run = remote.run
-        const tank = remote.tank
-        const volume = remote.volume
+        const run = remote.next.run
+        const tank = remote.next.tank
+        const volume = remote.next.volume
 
         let new_remote = JSON.stringify({
-            run: run,
-            tank: Number(tank) + 1,
-            volume: volume
+            "prev" : {
+                run: run,
+                tank: Number(tank),
+                volume: volume 
+            },
+            "next" : {
+                run: run,
+                tank: Number(tank) + 1,
+                volume: volume 
+            }
         })
         fs.writeFileSync('/home/pi/pi_pcv/remote.json', new_remote)
         var j = 0;
