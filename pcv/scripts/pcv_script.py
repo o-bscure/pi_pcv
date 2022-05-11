@@ -145,7 +145,7 @@ while (threshold <= 255) & (thresh_push < 2):
     for cnt in contours:
         x,y,w,h = cv2.boundingRect(cnt) #reapply bounding rectangle
         low_y = y + h
-        if w > 20 and w < 60 and low_y > 200:   #remove small and large contours
+        if w > 20 and w < 60 and low_y > 350:   #remove small and large contours
             center_rect = x+(w/2)
             if center_rect > (center_x-10) and center_rect < (center_x+10): #remove contours not aligned with center of image
                 final_contours += 1

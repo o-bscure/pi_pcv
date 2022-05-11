@@ -5,15 +5,14 @@ if [ "$EUID" -ne 0 ]
 	exit
 fi
 
-if  cd /home/pi/pi_pcv/pcv/public 
+if  cd /home/pi/pi_pcv/pcv/public
 then
 
 for file in *; do
-	if [ -f "$file" ]
+	if [ -f "$file" ] && [ -f "${file//./_analyzed.}" ]
 	then
-	gzip "$file"
-	mv "$file".gz archive
-	echo "$file" zipped to archive
+	rm "$file"
+	echo "$file" deleted
 	fi
 done
 fi

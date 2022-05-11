@@ -9,7 +9,7 @@ const hanlder = async (req, res) => {
 	const tank = body.tank
 	const time = body.time
 	var time_array = time.match(/[\w]+/g)
-	if (time_array[time_array.length - 1] == "PM") {
+	if ((time_array[time_array.length - 1] == "PM") && (Number(time_array[3]) != 12)) {
 		time_array[3] = String(Number(time_array[3])+12)
 	}
 	for (let i=0; i<time_array.length-1; i++) {

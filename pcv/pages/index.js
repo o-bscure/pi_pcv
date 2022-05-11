@@ -7,16 +7,26 @@ export default class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+	    flavor: "PE",
             run: "",
             tank: 1,
             volume: undefined,
             isSet: undefined 
         }
 
+	this.handleFlavorSelect = this.handleFlavorSelect.bind(this)
         this.handleRunSelect = this.handleRunSelect.bind(this)
         this.handleTankSelect = this.handleTankSelect.bind(this)
         this.handleVolumeSelect = this.handleVolumeSelect.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    handleFlavorSelect(event) {
+	    //event.preventDefault()
+	    this.setState(prevState => ({
+		    flavor: event.target.value,
+		    isSet: undefined
+	    }))
     }
 
     handleRunSelect(event) {
@@ -50,7 +60,7 @@ export default class Home extends React.Component {
           url: '/api/remote',
           timeout: 5000,
           data: {
-              run: this.state.run,
+              run: `${this.state.flavor}${this.state.run}`,
               tank: this.state.tank,
               volume: this.state.volume
           }
@@ -84,6 +94,7 @@ export default class Home extends React.Component {
             var buttonType = "flex place-self-center place-content-center place-items-center bg-white rounded-md w-64 h-12 border-2 font-medium focus:outline-none " //needs trailing space
             buttonType += "border-red-400 " //needs trailing space
         }
+
         if (!this.state.run || bad_input.test(this.state.run) || (this.state.tank == undefined) || (this.state.tank < 1) || (this.state.volume == undefined) || (this.state.volume < 1)) {
             buttonType += "cursor-not-allowed " //needs trailing space
             var button_remote = <button disabled onClick={(e) => this.handleSubmit(e)} className={buttonType}>Set Remote</button>
@@ -109,7 +120,11 @@ export default class Home extends React.Component {
                     <div className="col-span-2 flex place-content-center flex-wrap w-full h-full">
                         <div className="grid grid-cols-1 gap-y-2 w-full">
                             <div className="flex w-full place-content-center">
-                                <label className="flex flex-inital text-xl mr-1 place-items-center font-semibold">Run</label>
+				<select name="flavor" onChange={(e) => this.handleFlavorSelect(e)}>
+					<option value="PE">PE</option>
+					<option value="SAM">SAM</option>
+					<option value="SV">SV</option>
+				</select>
                                 <input type="text" id="run" value={this.state.run} onChange={(e) => this.handleRunSelect(e)} 
                                     className="flex flex-initial place-self-center w-16 h-7 bg-white border border-black rounded-md focus:outline-none"/>
 

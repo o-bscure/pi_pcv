@@ -184,9 +184,15 @@ export default class Upload extends React.Component {
 				var tt;
                             	tt = new Date(this.state.tanks[tank_keys[i]].results.time[j])
                             	//tt = new Date(tt.toUTCString()).toLocaleString()
-				export_data_single.push({"Experiment": this.state.tanks[tank_k].run, "Tank Name": `Cub ${this.state.tanks[tank_k].tank}`, 
+				if (this.state.tanks[tank_k].run.substring(0,3).toUpperCase() == "SAM") {
+					export_data_single.push({"Experiment": this.state.tanks[tank_k].run, "Tank Name": `Lion ${this.state.tanks[tank_k].tank}`, 
 					"Sample Number": `${result.sample_num[j]}`, "Measurement Timestamp": tt, "Measurement Type": "PCV", 
 					"Dilution": Number(1), "Measurement Value": Number(result.pcv[j])/Number(result.volume[j])*1000, "Units": "uL/mL", "Equipment": "Manual"})
+				} else {
+					export_data_single.push({"Experiment": this.state.tanks[tank_k].run, "Tank Name": `Cub ${this.state.tanks[tank_k].tank}`, 
+					"Sample Number": `${result.sample_num[j]}`, "Measurement Timestamp": tt, "Measurement Type": "PCV", 
+					"Dilution": Number(1), "Measurement Value": Number(result.pcv[j])/Number(result.volume[j])*1000, "Units": "uL/mL", "Equipment": "Manual"})
+				}
 			    }
 			    //dilution used to be result.volume[j]. changed to 1
 		    }
