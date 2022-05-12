@@ -145,6 +145,7 @@ export default class Home extends React.Component {
                     <div className="flex flex-col place-items-center">
                         <div className="flex flex-row gap-2 place-items-center"><span className="text-4xl font-semibold">Next: </span><span className="text-4xl">{this.state.next.run} Tank {this.state.next.tank}</span></div>
                         <div className="flex flex-row gap-2 place-items-center"><span className="text-2xl font-semibold">Last: </span><span className="text-2xl">{this.state.prev.run} Tank {this.state.prev.tank}</span></div>
+			<div className="flex flex-row place-items-center">Refresh to update</div>
                     </div>
                 </div> 
             </div>
@@ -154,35 +155,10 @@ export default class Home extends React.Component {
 
 
 export async function getServerSideProps() {
-    var remote = require('../../remote.json')
+    var fs = require('fs');
+
+    var remote = JSON.parse(fs.readFileSync('/home/pi/pi_pcv/remote.json').toString())
     return { props: { remote } }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
